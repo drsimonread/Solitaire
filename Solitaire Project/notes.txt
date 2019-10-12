@@ -1,0 +1,126 @@
+With the heuristics giving a true value for the DealNewRow move,the evolution starts at a
+maximum score of 5 and remains roughly there (it varies because of the randomness of the games).
+This is probably because the game always picks DealNewRow, so we get the probability of 
+dealing consecutive cards by accident.
+
+An approach to this might be to introduce a heuristic that recognises the DealNewRpw move and
+make all other heuristics return the false (0) value.  This will allow the evolution to find an
+appropriate value for the DealNewRow move.
+
+Decreased the number of games to 10 and the population size to 100.
+
+Made the mistake of not incrementing moves in the playing of the game so some game went on for
+an infinite number of moves.
+
+Adding this heuristic causes the system to become unstable with fitnesses ranging from 1 to 10
+or so.
+
+Changing the system so that it learns to play only one set of games stabilises this (obviously),
+but leads to fitnesses of only 50 to 70 and an unstable genome.
+
+We need a way of visualising what a particular genome does so that we can figure out how to
+better arrange evolution and if we need better heuristics.
+
+Tried with only DirtyFlush, StraightFlush and DealNewRowRecognizer with little change in the
+results... fitnesses of between 50 and 70.
+
+With a population size of 1000 and a number of games of 100 the fitness drops again to 5.
+This doesn't make sense.  Have we got the sorting the right way up?  The fitnesses increase
+over time so this would seem to be right.
+
+Fixed error of total_fitness accumulation rather than last game.  This will make individuals
+score much higher!  It also explains why the score is ten times as low with 10 times as many
+games!
+
+Fitness still doesn't increase monotonically, why is this?
+
+Trying with all heuristics and different games each time.  This is very slow, possibly because of
+the OpensMoveStackDestination heuristic which is very slow.  The fitness is lower generally in the
+range 410 to 490.
+
+TODO We should also count the number of wins, in case there are any.
+
+Fixed problem with not copying games!
+
+Evolution doesn't seem to be happening.  Perhaps we need to do limited crossover and mutation.
+
+Fixed problem with crossover copying all genes to be the one at the crossover point.
+
+Set limited crossover and mutation.
+
+Evolution still doesn't seem to be happening.  Indeed the fitness seems to go *down* with time.
+Perhaps we need to evolve on a single set of games, perhaps there is too much variation in how
+well games are being played though this would suggest that a different member of the population
+would rise to the top each time.  The first few genes seem to vary a lot less than the last few
+genes as we would expect from having so much crossover.
+
+Fixed taking *lowest* fitness individual (individuals.get(0)) to taking highest individual
+(individuals.get(individuals.size() - 1);
+
+Now it evolves fine, but seems to cap out around 910-920, with a maximum around 970.
+
+Try evolving it over a fixed set of games (and then testing on a different set?).  Try
+visualisation.  It seems to converge tangentially to around 1070.
+
+1074.75 0.18238821503645997 0.6464214294004164 0.4970291264133464 0.018172630312433324 0.34069249740457463 0.9690307949468435 0.03704993898333819 0.40219740278364036
+1074.75 0.18238821503645997 0.6464214294004164 0.9464572995422899 0.018172630312433324 0.34069249740457463 0.9690307949468435 0.03704993898333819 0.40219740278364036
+1074.75 0.18238821503645997 0.6464214294004164 0.13828954989488362 0.018172630312433324 0.34069249740457463 0.9690307949468435 0.03704993898333819 0.40219740278364036
+1074.75 0.18238821503645997 0.6464214294004164 0.45755607828617306 0.018172630312433324 0.34069249740457463 0.9690307949468435 0.03704993898333819 0.40219740278364036
+1074.75 0.18238821503645997 0.6464214294004164 0.9562982385001013 0.018172630312433324 0.34069249740457463 0.9690307949468435 0.03704993898333819 0.40219740278364036
+1074.75 0.18238821503645997 0.6464214294004164 0.7309231605323536 0.018172630312433324 0.34069249740457463 0.9690307949468435 0.03704993898333819 0.40219740278364036
+
+Added class fitness to allow printing of ratio of games won (amongst other statistics).
+
+Although the average score is 1070 it doesn't seem to be winning *any* games!  We need to be 
+able to do visualisation to find out why it can't seem to finish the game.  It would be nice
+to have a standard deviation of scores, but this would be hard to do.
+
+There must be something wrong with the function that does the Sun score because according
+to Wikipedia, the maximum score is 1000!  The score also explicitly says that the sequence
+score is for cards of the same suit... straight flush not dirty flush.
+
+Added collected to Fitness to see if the algorithm is managing to collect any suits.
+
+Fixed the format of the output for GeneticAlgorithm.
+
+Tried unlimited crossover and mutation to see how this affects evolution.  It's definitely
+slower, though interestingly the best individual still varies from generation to generation.
+
+The limit is still around 1070 with no wins or collections.  There are some heuristics that
+are stable and there are some that are not.  We should look at these as we're doing
+visualisation.  Some of the heuristics are essentially 1.0, should we allow the values to
+exceed one or are the other values scaling to these values.
+
+Need to fix format for CSV files.  Create a CSV file for the top individual's evolution.
+Perhaps use tabs as separators instead of commas.
+
+We need to start checking this in to git so we can save output files too.
+
+Need a separate title for visualisation and evolution (duh!)
+
+The problem seems largely to be that the weights are not prioritising straight flushes
+over dirty flushes, so it's picking on different criteria like number of card.  I don't
+see how a system based on move weights can deal with this problem, though any system
+must prioritise some moves and that's all we're doing here.  This will stop us from
+getting any suits.
+
+If we look at the Sun scoring system as a metric, it is not surprising that DS and SF
+are approximately equally weighted.  The metric gives a weight of 10 to getting a card
+face up but only 2 to getting it in sequence.  We should try a different metric, perhaps
+by swapping the weights.  The values will not be comparable with the values for the current
+metric (I don't think) but we should be able to see an improvement when we visualise the
+resulting genotype.
+
+The following is the result of a genetic algorithm run.  Note this is not much different
+from a run with the Sun metric, except that the scores are lower.
+
+Sun     Coll  Wins  CES         DNRR        DF          DISC        FES         NoC         OMSD        SF          TM          
+617.41 0.000 0.000  0.14255447  0.35860655  0.84846350  0.84528036  0.24528387  0.03519490  0.19965945  0.98377871  0.09568164
+
+Visualising:  Discovery is weighted too highly.  There is a problem in that a long dirty
+straight takes precedence over a short straight flush. This leads to lots of dirty flushes
+which score fairly high.
+
+What can we do about this?  Will Genetic Programming overcome the problem?  Probably only
+if the program can consider all the moves.  Part of the problem is that discovery is 10
+or nothing.
