@@ -9,19 +9,19 @@ package edu.smcm.ai.genetic.programming;
 public class IfStatement extends Expression {
 
 	private Expression condition;
-	private Expression true_operation;
-	private Expression false_operation;
+	private Expression true_expression;
+	private Expression false_expression;
 	
 	public Expression condition() {
 		return condition;
 	}
 	
 	public Expression true_operation() {
-		return true_operation;
+		return true_expression;
 	}
 	
 	public Expression false_operation() {
-		return false_operation;
+		return false_expression;
 	}
 	
 	public void condition(Expression condition) {
@@ -29,11 +29,11 @@ public class IfStatement extends Expression {
 	}
 	
 	public void true_operation(Expression true_operation) {
-		this.true_operation = true_operation;
+		this.true_expression = true_operation;
 	}
 	
 	public void false_operation(Expression false_operation) {
-		this.false_operation = false_operation;
+		this.false_expression = false_operation;
 	}
 	
 	public OperatorType type() {
@@ -50,12 +50,20 @@ public class IfStatement extends Expression {
 			// TODO Meaningful message
 			throw new TypeError();
 		} else if (((Boolean) condition_value).value()) {
-			result = true_operation.evaluate(context);
+			result = true_expression.evaluate(context);
 		} else {
-			result = false_operation.evaluate(context);
+			result = false_expression.evaluate(context);
 		}
 		
 		return result;
 	}
 
+	@Override
+	public String prettyPrint(int level) {
+		return spaces(level) + "(IF\n" +
+				condition.prettyPrint(level) +
+				true_expression.prettyPrint(level) +
+				false_expression.prettyPrint(level) +
+				spaces(level) + ")\n";
+	}
 }

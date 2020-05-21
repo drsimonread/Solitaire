@@ -17,4 +17,8 @@ public class Constant extends Expression {
 		return value;
 	}
 	
+	public String prettyPrint(int level) {
+		return spaces(level) + value;
+	}
+	
 }

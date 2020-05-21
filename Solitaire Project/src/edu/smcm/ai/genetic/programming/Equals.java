@@ -43,4 +43,9 @@ public class Equals extends BinaryOperator {
 		
 		return result;
 	}
+
+	@Override
+	public String prettyPrint(int level) {
+		return prettyPrintHelper("EQUALS", level);
+	}
 }

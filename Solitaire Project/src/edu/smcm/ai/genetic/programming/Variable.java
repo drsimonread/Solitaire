@@ -14,4 +14,9 @@ public abstract class Variable extends Expression {
 	public String name() {
 		return name;
 	}
+	
+	@Override
+	public String prettyPrint(int level) {
+		return name;
+	}
 }

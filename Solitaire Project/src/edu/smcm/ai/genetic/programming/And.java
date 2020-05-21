@@ -36,4 +36,9 @@ public class And extends BinaryOperator {
 		
 		return result;
 	}
+	
+	@Override
+	public String prettyPrint(int level) {
+		return prettyPrintHelper("AND", level);
+	}
 }

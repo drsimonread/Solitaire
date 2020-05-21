@@ -41,4 +41,9 @@ public class Modulus extends BinaryOperator {
 		
 		return result;
 	}
+	
+	@Override
+	public String prettyPrint(int level) {
+		return prettyPrintHelper("MODULUS", level);
+	}
 }

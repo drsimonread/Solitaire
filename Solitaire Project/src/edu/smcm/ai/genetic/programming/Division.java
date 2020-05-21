@@ -47,4 +47,9 @@ public class Division extends BinaryOperator {
 		
 		return result;
 	}
+
+	@Override
+	public String prettyPrint(int level) {
+		return prettyPrintHelper("DIVIDE", level);
+	}
 }

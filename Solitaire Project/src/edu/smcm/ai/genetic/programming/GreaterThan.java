@@ -42,4 +42,8 @@ public class GreaterThan extends BinaryOperator {
 		return result;
 	}
 
+	@Override
+	public String prettyPrint(int level) {
+		return prettyPrintHelper("GREATER THAN", level);
+	}
 }

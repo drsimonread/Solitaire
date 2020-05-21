@@ -21,4 +21,8 @@ public class Boolean extends Value {
 	public DataType type() {
 		return DataType.Boolean;
 	}
+	
+	public String toString() {
+		return value ? "TRUE" : "FALSE";
+	}
 }

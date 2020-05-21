@@ -20,4 +20,8 @@ public class Double extends Value {
 	public DataType type() {
 		return DataType.Double;
 	}
+	
+	public String toString() {
+		return "" + value;
+	}
 }

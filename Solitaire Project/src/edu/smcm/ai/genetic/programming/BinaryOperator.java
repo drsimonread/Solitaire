@@ -25,4 +25,11 @@ public abstract class BinaryOperator extends Expression {
 	public void right(Expression right) {
 		this.right = right;
 	}
+	
+	protected String prettyPrintHelper(String keyword, int level) {
+		return spaces(level) + "(" + keyword + "\n" + 
+				left().prettyPrint(level + 1) + 
+				right().prettyPrint(level + 1) + 
+				spaces(level) + ")\n";
+	}
 }

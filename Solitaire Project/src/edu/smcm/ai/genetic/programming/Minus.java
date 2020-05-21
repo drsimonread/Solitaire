@@ -35,4 +35,9 @@ public class Minus extends UnaryOperator {
 
 		return result;
 	}
+
+	@Override
+	public String prettyPrint(int level) {
+		return prettyPrintHelper("MINUS", level);
+	}
 }

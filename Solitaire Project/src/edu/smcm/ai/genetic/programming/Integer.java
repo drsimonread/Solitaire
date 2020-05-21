@@ -20,4 +20,8 @@ public class Integer extends Value {
 	public DataType type() {
 		return DataType.Integer;
 	}
+
+	public String toString() {
+		return "" + value;
+	}
 }

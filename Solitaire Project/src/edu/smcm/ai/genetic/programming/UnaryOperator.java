@@ -20,4 +20,8 @@ public abstract class UnaryOperator extends Expression {
 	@Override
 	public abstract Value evaluate(Context context);
 
+	public String prettyPrintHelper(String keyword, int level) {
+		return spaces(level) + "(" + keyword + "\n" +
+				")\n";
+	}
 }

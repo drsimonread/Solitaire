@@ -41,4 +41,9 @@ public class Addition extends BinaryOperator {
 		
 		return result;
 	}
+
+	@Override
+	public String prettyPrint(int level) {
+		return prettyPrintHelper("ADD", level);
+	}
 }

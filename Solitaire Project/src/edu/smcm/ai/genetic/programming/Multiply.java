@@ -47,4 +47,9 @@ public class Multiply extends BinaryOperator {
 		
 		return result;
 	}
+	
+	@Override
+	public String prettyPrint(int level) {
+		return prettyPrintHelper("MULTIPLY", level);
+	}
 }

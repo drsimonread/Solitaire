@@ -16,8 +16,6 @@ public class Not extends UnaryOperator {
 		return OperatorType.Logic;
 	}
 	
-	// TODO Can all these be cleaned up by using a first-class function in Java?
-	
 	@Override
 	public Value evaluate(Context context) {
 		Value result;
@@ -30,5 +28,10 @@ public class Not extends UnaryOperator {
 		} 
 		
 		return result;
+	}
+	
+	@Override
+	public String prettyPrint(int level) {
+		return prettyPrintHelper("NOT", level);
 	}
 }
