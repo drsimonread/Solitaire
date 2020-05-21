@@ -12,6 +12,12 @@ public class IfStatement extends Expression {
 	private Expression true_expression;
 	private Expression false_expression;
 	
+	public IfStatement(Expression condition, Expression true_expression, Expression false_expression) {
+		this.condition = condition;
+		this.true_expression = true_expression;
+		this.false_expression = false_expression;
+	}
+	
 	public Expression condition() {
 		return condition;
 	}

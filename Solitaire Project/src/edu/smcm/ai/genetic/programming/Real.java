@@ -1,10 +1,10 @@
 package edu.smcm.ai.genetic.programming;
 
-public class Double extends Value {
+public class Real extends Value {
 	
 	private double value;
 	
-	public Double(double value) {
+	public Real(double value) {
 		this.value = value;
 	}
 	
@@ -18,7 +18,7 @@ public class Double extends Value {
 	
 	@Override
 	public DataType type() {
-		return DataType.Double;
+		return DataType.Real;
 	}
 	
 	public String toString() {

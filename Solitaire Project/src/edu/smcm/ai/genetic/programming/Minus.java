@@ -24,8 +24,8 @@ public class Minus extends UnaryOperator {
 		case Integer:
 			result = new Integer(-((Integer) result).value());
 			break;
-		case Double:
-			result = new Double(-((Double) result).value());
+		case Real:
+			result = new Real(-((Real) result).value());
 			break;
 		default:
 			// TODO Meaningful message

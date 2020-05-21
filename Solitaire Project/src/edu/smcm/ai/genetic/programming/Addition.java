@@ -21,20 +21,20 @@ public class Addition extends BinaryOperator {
 		left_value = left().evaluate(context);
 		right_value = right().evaluate(context);
 		
-		if (left_value.type() != DataType.Double || left_value.type() != DataType.Integer) {
+		if (left_value.type() != DataType.Real || left_value.type() != DataType.Integer) {
 			// TODO Meaningful Error Message
 			throw new TypeError();
-		} else if (left_value.type() != DataType.Double || left_value.type() != DataType.Integer) {
+		} else if (left_value.type() != DataType.Real || left_value.type() != DataType.Integer) {
 			// TODO Meaningful Error Message
 			throw new TypeError();
-		} else if (left_value.type() == DataType.Double && right_value.type() == DataType.Double) {
-			result = new Double(((Double) left_value).value() * ((Double) right_value).value());
+		} else if (left_value.type() == DataType.Real && right_value.type() == DataType.Real) {
+			result = new Real(((Real) left_value).value() * ((Real) right_value).value());
 		} else if (left_value.type() == DataType.Integer && right_value.type() == DataType.Integer) {
 			result = new Integer(((Integer) left_value).value() * ((Integer) right_value).value());
-		} else if (left_value.type() == DataType.Double && right_value.type() == DataType.Double) {
-			result = new Double(((Integer) left_value).value() * ((Double) right_value).value());
-		} else if (left_value.type() == DataType.Double && right_value.type() == DataType.Integer) {
-			result = new Double(((Double) left_value).value() * ((Integer) right_value).value());
+		} else if (left_value.type() == DataType.Integer && right_value.type() == DataType.Real) {
+			result = new Real(((Integer) left_value).value() * ((Real) right_value).value());
+		} else if (left_value.type() == DataType.Real && right_value.type() == DataType.Integer) {
+			result = new Real(((Real) left_value).value() * ((Integer) right_value).value());
 		} else {
 			throw new ImplementationErrorException();
 		}
