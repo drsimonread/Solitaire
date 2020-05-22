@@ -19,8 +19,8 @@ public class GeneratorExample {
 		Expression result;
 		int pick;
 
-		left_expression = factory(OperatorType.Arithmetic, context);
-		right_expression = factory(OperatorType.Arithmetic, context);
+		left_expression = factory(true, context);
+		right_expression = factory(true, context);
 
 		pick = oracle.nextInt(5);
 
@@ -54,8 +54,8 @@ public class GeneratorExample {
 		Expression result;
 		int pick;
 
-		left_expression = factory(OperatorType.Logic, context);
-		right_expression = factory(OperatorType.Logic, context);
+		left_expression = factory(false, context);
+		right_expression = factory(false, context);
 
 		pick = oracle.nextInt(2);
 
@@ -80,8 +80,8 @@ public class GeneratorExample {
 		Expression result;
 		int pick;
 
-		left_expression = factory(OperatorType.Arithmetic, context);
-		right_expression = factory(OperatorType.Arithmetic, context);
+		left_expression = factory(true, context);
+		right_expression = factory(true, context);
 
 		pick = oracle.nextInt(2);
 
@@ -103,43 +103,64 @@ public class GeneratorExample {
 		return result;
 	}
 
-	private Expression BinaryOperator(OperatorType type, Context context) {
+	private Expression BinaryOperator(boolean arithmetic, Context context) {
 		Expression result;
+		int pick;
 
-		switch (type) {
-		case Arithmetic:
+		if (arithmetic) {
 			result = BinaryArithmeticOperator(context);
-			break;
-		case Logic:
-			result = BinaryLogicOperator(context);
-			break;
-		case Relational:
-			result = BinaryRelationalOperator(context);
-			break;
-		default:
-			throw new ImplementationErrorException();
-		// break;
+		} else {
+			pick = oracle.nextInt(5);
+
+			switch (pick) {
+			case 0:
+			case 1:
+			case 2:
+				result = BinaryLogicOperator(context);
+				break;
+			case 3:
+			case 4:
+				result = BinaryRelationalOperator(context);
+				break;
+			default:
+				throw new ImplementationErrorException();
+			// break;
+			}
 		}
 
 		return result;
 	}
 
-	private Expression IfStatement(OperatorType type, Context context) {
-		assert (type == OperatorType.Arithmetic);
+	public Expression UnaryOperator(boolean arithmetic, Context context) {
+		Expression result;
+		
+		if (arithmetic) {
+			result = new Minus(factory(true, context));
+		} else {
+			result = new Not(factory(false, context));
+		}
+		
+		return result;
+	}
+	
+	/* If statements must result in an arithmetic value */
+	private Expression IfStatement(boolean arithmetic, Context context) {
+		assert (arithmetic);
+
 		Expression condition;
 		Expression true_condition;
 		Expression false_condition;
 
-		condition = factory(OperatorType.Logic, context);
-		true_condition = factory(OperatorType.Arithmetic, context);
-		false_condition = factory(OperatorType.Arithmetic, context);
+		condition = factory(false, context);
+		true_condition = factory(true, context);
+		false_condition = factory(true, context);
 
 		return new IfStatement(condition, true_condition, false_condition);
 	}
 
-	private Expression Variable(OperatorType type, Context context) {
-		// TODO What happens if we don't have either Arithmetic or Boolean variables?
-		// For now we'll assume the Context will provide at least one dummy move
+	private Expression Variable(boolean arithmetic, Context context) {
+		// TODO Contexts should always have one variable of each type... a random number
+		// generator
 		Expression result;
 		List<Variable> boolean_variables;
 		List<Variable> integer_variables;
@@ -150,32 +171,26 @@ public class GeneratorExample {
 		integer_variables = context.integerVariables();
 		real_variables = context.realVariables();
 
-		switch (type) {
-		case Arithmetic:
+		if (arithmetic) {
 			index = oracle.nextInt(integer_variables.size() + real_variables.size());
 			if (index < integer_variables.size()) {
 				result = integer_variables.get(index);
 			} else {
-				// TODO CHeck for off by one error
+				// TODO Check for off by one error
 				result = real_variables.get(index - integer_variables.size());
 			}
-			break;
-		case Logic:
-		case Relational:
+		} else {
 			result = context.booleanVariables().get(oracle.nextInt(boolean_variables.size()));
-			break;
-		default:
-			throw new ImplementationErrorException();
-			// break;
 		}
 
 		return result;
 	}
 
-	private Expression Constant(OperatorType type, Context context) {
+	/* Constants can only be arithmetic! */
+	private Expression Constant(boolean arithmetic, Context context) {
 		Expression result;
 
-		assert (OperatorType.Arithmetic == type);
+		assert (arithmetic);
 
 		if (oracle.nextBoolean()) {
 			// TODO I don't like the linear distribution here!
@@ -188,46 +203,66 @@ public class GeneratorExample {
 		return result;
 	}
 
-	public Expression factory(OperatorType type, Context context) {
+	/*
+	 * The boolean determines type. If we're expecting a Double or Integer value
+	 * it's true, if we're expecting a Boolean type it's false. The context is
+	 * necessary to allow us access to variable names.
+	 */
+	public Expression factory(boolean arithmetic, Context context) {
 		Expression result;
 		int pick;
 
-		pick = oracle.nextInt(10);
+		if (arithmetic) {
+			pick = oracle.nextInt(10);
 
-		// TODO This has a rather arbitrary probability of any given Expression type
-		// Perhaps we should have different switches for Arithmetic and Relational/Logic
-		switch (pick) {
-		case 0:
-		case 1:
-		case 2:
-		case 3:
-			result = BinaryOperator(type, context);
-			break;
-		case 4:
-		case 5:
-			if (type == OperatorType.Arithmetic) {
-				result = IfStatement(type, context);
-			} else if (4 == pick) {
-				result = Variable(type, context);
-			} else {
-				result = Constant(type, context);
+			// TODO This has a rather arbitrary probability of any given Expression type
+			switch (pick) {
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+				result = BinaryOperator(arithmetic, context);
+				break;
+			case 4:
+			case 5:
+				result = IfStatement(arithmetic, context);
+				break;
+			case 6:
+			case 7:
+				result = Constant(arithmetic, context);
+			case 8:
+			case 9:
+				result = Variable(arithmetic, context);
+				break;
+			default:
+				throw new ImplementationErrorException();
+			// break;
 			}
-			break;
-		case 6:
-		case 7:
-			result = Variable(type, context);
-			break;
-		case 8:
-		case 9:
-			if (OperatorType.Arithmetic == type) {
-				result = Constant(type, context);
-			} else {
-				result = BinaryOperator(type, context);
+		} else {
+			pick = oracle.nextInt(10);
+
+			// TODO This has a rather arbitrary probability of any given Expression type
+			switch (pick) {
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+				result = BinaryOperator(arithmetic, context);
+				break;
+			case 4:
+			case 5:
+				result = UnaryOperator(arithmetic, context);
+				break;
+			case 6:
+			case 7:
+			case 8:
+			case 9:
+				result = Variable(arithmetic, context);
+				break;
+			default:
+				throw new ImplementationErrorException();
+			// break;
 			}
-			break;
-		default:
-			throw new ImplementationErrorException();
-		// break;
 		}
 
 		return result;

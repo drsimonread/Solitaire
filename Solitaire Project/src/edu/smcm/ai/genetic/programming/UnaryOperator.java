@@ -21,7 +21,7 @@ public abstract class UnaryOperator extends Expression {
 	public abstract Value evaluate(Context context);
 
 	public String prettyPrintHelper(String keyword, int level) {
-		return spaces(level) + "(" + keyword + "\n" +
+		return spaces(level) + "(" + keyword + "\n" + expression.prettyPrint(level + 1) +
 				")\n";
 	}
 }

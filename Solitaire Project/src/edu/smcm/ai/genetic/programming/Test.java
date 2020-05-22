@@ -78,7 +78,7 @@ public class Test {
 		
 		example = new GeneratorExample();
 		context = new TestContext();
-		expression = example.factory(OperatorType.Arithmetic, context);
+		expression = example.factory(true, context);
 				System.out.println(expression.prettyPrint(0));
 				
 	}
