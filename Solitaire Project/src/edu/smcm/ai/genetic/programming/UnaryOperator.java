@@ -22,6 +22,6 @@ public abstract class UnaryOperator extends Expression {
 
 	public String prettyPrintHelper(String keyword, int level) {
 		return spaces(level) + "(" + keyword + "\n" + expression.prettyPrint(level + 1) +
-				")\n";
+				spaces(level) + ")\n";
 	}
 }

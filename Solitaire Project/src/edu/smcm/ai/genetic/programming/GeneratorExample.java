@@ -13,14 +13,14 @@ public class GeneratorExample {
 		oracle = new Random();
 	}
 
-	private Expression BinaryArithmeticOperator(Context context) {
+	private Expression BinaryArithmeticOperator(int depth, Context context) {
 		Expression left_expression;
 		Expression right_expression;
 		Expression result;
 		int pick;
 
-		left_expression = factory(true, context);
-		right_expression = factory(true, context);
+		left_expression = factory(true, depth - 1, context);
+		right_expression = factory(true, depth - 1, context);
 
 		pick = oracle.nextInt(5);
 
@@ -48,14 +48,14 @@ public class GeneratorExample {
 		return result;
 	}
 
-	private Expression BinaryLogicOperator(Context context) {
+	private Expression BinaryLogicOperator(int depth, Context context) {
 		Expression left_expression;
 		Expression right_expression;
 		Expression result;
 		int pick;
 
-		left_expression = factory(false, context);
-		right_expression = factory(false, context);
+		left_expression = factory(false, depth - 1, context);
+		right_expression = factory(false, depth - 1, context);
 
 		pick = oracle.nextInt(2);
 
@@ -74,14 +74,14 @@ public class GeneratorExample {
 		return result;
 	}
 
-	private Expression BinaryRelationalOperator(Context context) {
+	private Expression BinaryRelationalOperator(int depth, Context context) {
 		Expression left_expression;
 		Expression right_expression;
 		Expression result;
 		int pick;
 
-		left_expression = factory(true, context);
-		right_expression = factory(true, context);
+		left_expression = factory(true, depth - 1, context);
+		right_expression = factory(true, depth - 1, context);
 
 		pick = oracle.nextInt(2);
 
@@ -103,12 +103,12 @@ public class GeneratorExample {
 		return result;
 	}
 
-	private Expression BinaryOperator(boolean arithmetic, Context context) {
+	private Expression BinaryOperator(boolean arithmetic, int depth, Context context) {
 		Expression result;
 		int pick;
 
 		if (arithmetic) {
-			result = BinaryArithmeticOperator(context);
+			result = BinaryArithmeticOperator(depth - 1, context);
 		} else {
 			pick = oracle.nextInt(5);
 
@@ -116,11 +116,11 @@ public class GeneratorExample {
 			case 0:
 			case 1:
 			case 2:
-				result = BinaryLogicOperator(context);
+				result = BinaryLogicOperator(depth - 1, context);
 				break;
 			case 3:
 			case 4:
-				result = BinaryRelationalOperator(context);
+				result = BinaryRelationalOperator(depth - 1, context);
 				break;
 			default:
 				throw new ImplementationErrorException();
@@ -131,29 +131,29 @@ public class GeneratorExample {
 		return result;
 	}
 
-	public Expression UnaryOperator(boolean arithmetic, Context context) {
+	public Expression UnaryOperator(boolean arithmetic, int depth, Context context) {
 		Expression result;
-		
+
 		if (arithmetic) {
-			result = new Minus(factory(true, context));
+			result = new Minus(factory(true, depth - 1, context));
 		} else {
-			result = new Not(factory(false, context));
+			result = new Not(factory(false, depth - 1, context));
 		}
-		
+
 		return result;
 	}
-	
+
 	/* If statements must result in an arithmetic value */
-	private Expression IfStatement(boolean arithmetic, Context context) {
+	private Expression IfStatement(boolean arithmetic, int depth, Context context) {
 		assert (arithmetic);
 
 		Expression condition;
 		Expression true_condition;
 		Expression false_condition;
 
-		condition = factory(false, context);
-		true_condition = factory(true, context);
-		false_condition = factory(true, context);
+		condition = factory(false, depth - 1, context);
+		true_condition = factory(true, depth - 1, context);
+		false_condition = factory(true, depth - 1, context);
 
 		return new IfStatement(condition, true_condition, false_condition);
 	}
@@ -187,10 +187,8 @@ public class GeneratorExample {
 	}
 
 	/* Constants can only be arithmetic! */
-	private Expression Constant(boolean arithmetic, Context context) {
+	private Expression Constant(Context context) {
 		Expression result;
-
-		assert (arithmetic);
 
 		if (oracle.nextBoolean()) {
 			// TODO I don't like the linear distribution here!
@@ -208,60 +206,87 @@ public class GeneratorExample {
 	 * it's true, if we're expecting a Boolean type it's false. The context is
 	 * necessary to allow us access to variable names.
 	 */
-	public Expression factory(boolean arithmetic, Context context) {
+	public Expression factory(boolean arithmetic, int depth, Context context) {
 		Expression result;
 		int pick;
+		
+		// TODO Tidy this up into four methods
+		// TODO Why does this need to be <
+		if (0 < depth) {
+			if (arithmetic) {
+				pick = oracle.nextInt(10);
 
-		if (arithmetic) {
-			pick = oracle.nextInt(10);
+				// TODO This has a rather arbitrary probability of any given Expression type
+				switch (pick) {
+				case 0:
+				case 1:
+				case 2:
+				case 3:
+					result = BinaryOperator(arithmetic, depth - 1, context);
+					break;
+				case 4:
+				case 5:
+					result = IfStatement(arithmetic, depth - 1 , context);
+					break;
+				case 6:
+				case 7:
+					result = Constant(context);
+				case 8:
+				case 9:
+					result = Variable(arithmetic, context);
+					break;
+				default:
+					throw new ImplementationErrorException();
+				// break;
+				}
+			} else {
+				pick = oracle.nextInt(10);
 
-			// TODO This has a rather arbitrary probability of any given Expression type
-			switch (pick) {
-			case 0:
-			case 1:
-			case 2:
-			case 3:
-				result = BinaryOperator(arithmetic, context);
-				break;
-			case 4:
-			case 5:
-				result = IfStatement(arithmetic, context);
-				break;
-			case 6:
-			case 7:
-				result = Constant(arithmetic, context);
-			case 8:
-			case 9:
-				result = Variable(arithmetic, context);
-				break;
-			default:
-				throw new ImplementationErrorException();
-			// break;
+				// TODO This has a rather arbitrary probability of any given Expression type
+				switch (pick) {
+				case 0:
+				case 1:
+				case 2:
+				case 3:
+					result = BinaryOperator(arithmetic, depth - 1, context);
+					break;
+				case 4:
+				case 5:
+					result = UnaryOperator(arithmetic, depth - 1, context);
+					break;
+				case 6:
+				case 7:
+				case 8:
+				case 9:
+					result = Variable(arithmetic, context);
+					break;
+				default:
+					throw new ImplementationErrorException();
+				// break;
+				}
 			}
 		} else {
-			pick = oracle.nextInt(10);
+			if (arithmetic) {
+				pick = oracle.nextInt(6);
 
-			// TODO This has a rather arbitrary probability of any given Expression type
-			switch (pick) {
-			case 0:
-			case 1:
-			case 2:
-			case 3:
-				result = BinaryOperator(arithmetic, context);
-				break;
-			case 4:
-			case 5:
-				result = UnaryOperator(arithmetic, context);
-				break;
-			case 6:
-			case 7:
-			case 8:
-			case 9:
+				// TODO This has a rather arbitrary probability of any given Expression type
+				switch (pick) {
+				case 0:
+				case 1:
+					result = Constant(context);
+					break;
+				case 2:
+				case 3:
+				case 4:
+				case 5:
+					result = Variable(arithmetic, context);
+					break;
+				default:
+					throw new ImplementationErrorException();
+				// break;
+				}
+			} else {
 				result = Variable(arithmetic, context);
-				break;
-			default:
-				throw new ImplementationErrorException();
-			// break;
 			}
 		}
 

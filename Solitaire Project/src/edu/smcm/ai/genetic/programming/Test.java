@@ -47,7 +47,7 @@ public class Test {
 			integers.add(new TestVariable("Int2", OperatorType.Arithmetic));
 			integers.add(new TestVariable("Int3", OperatorType.Arithmetic));
 
-			reals.add(new TestVariable("Reall0", OperatorType.Arithmetic));
+			reals.add(new TestVariable("Real0", OperatorType.Arithmetic));
 			reals.add(new TestVariable("Real1", OperatorType.Arithmetic));
 			reals.add(new TestVariable("Real2", OperatorType.Arithmetic));
 			reals.add(new TestVariable("Real3", OperatorType.Arithmetic));
@@ -78,7 +78,7 @@ public class Test {
 		
 		example = new GeneratorExample();
 		context = new TestContext();
-		expression = example.factory(true, context);
+		expression = example.factory(true, 20, context);
 				System.out.println(expression.prettyPrint(0));
 				
 	}
