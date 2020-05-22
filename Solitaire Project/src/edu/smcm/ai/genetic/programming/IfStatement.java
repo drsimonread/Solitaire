@@ -67,9 +67,9 @@ public class IfStatement extends Expression {
 	@Override
 	public String prettyPrint(int level) {
 		return spaces(level) + "(IF\n" +
-				condition.prettyPrint(level) +
-				true_expression.prettyPrint(level) +
-				false_expression.prettyPrint(level) +
+				condition.prettyPrint(level + 1) +
+				true_expression.prettyPrint(level + 1) +
+				false_expression.prettyPrint(level + 1) +
 				spaces(level) + ")\n";
 	}
 }

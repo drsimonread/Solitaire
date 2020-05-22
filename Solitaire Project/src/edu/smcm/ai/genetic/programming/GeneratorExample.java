@@ -156,7 +156,8 @@ public class GeneratorExample {
 			if (index < integer_variables.size()) {
 				result = integer_variables.get(index);
 			} else {
-				result = real_variables.get(index - integer_variables.size() - 1);
+				// TODO CHeck for off by one error
+				result = real_variables.get(index - integer_variables.size());
 			}
 			break;
 		case Logic:
