@@ -2,7 +2,7 @@ package edu.smcm.ai.examples.solitaire.spider;
 
 import java.util.List;
 
-import edu.smcm.ai.genetic.Genotype;
+import edu.smcm.ai.genetic.algorithm.Genotype;
 import edu.smcm.games.cards.CardsFaceDownException;
 import edu.smcm.games.cards.NotEnoughCardsException;
 import edu.smcm.util.ImplementationErrorException;

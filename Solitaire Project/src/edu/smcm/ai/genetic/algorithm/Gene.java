@@ -1,4 +1,4 @@
-package edu.smcm.ai.genetic;
+package edu.smcm.ai.genetic.algorithm;
 
 import java.io.PrintStream;
 import java.util.Random;

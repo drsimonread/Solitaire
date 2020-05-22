@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import edu.smcm.ai.genetic.Genotype;
-import edu.smcm.ai.genetic.Population;
-import edu.smcm.ai.genetic.Individual;
+import edu.smcm.ai.genetic.algorithm.Genotype;
+import edu.smcm.ai.genetic.algorithm.Individual;
+import edu.smcm.ai.genetic.algorithm.Population;
 
 public class GeneticAlgorithm {
 

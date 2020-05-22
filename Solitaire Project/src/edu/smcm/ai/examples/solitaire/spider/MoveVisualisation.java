@@ -1,6 +1,6 @@
 package edu.smcm.ai.examples.solitaire.spider;
 
-import edu.smcm.ai.genetic.Genotype;
+import edu.smcm.ai.genetic.algorithm.Genotype;
 
 public class MoveVisualisation implements Comparable<MoveVisualisation> {
 	private Move move;

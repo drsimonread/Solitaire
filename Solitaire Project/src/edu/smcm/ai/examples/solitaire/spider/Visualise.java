@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import edu.smcm.ai.genetic.Genotype;
+import edu.smcm.ai.genetic.algorithm.Genotype;
 
 public class Visualise {
 
