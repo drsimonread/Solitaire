@@ -1,5 +1,7 @@
 package edu.smcm.ai.genetic.programming;
 
+import edu.smcm.ai.genetic.Context;
+
 public abstract class Expression {
 	public abstract Value evaluate(Context context);
 	public abstract OperatorType type();

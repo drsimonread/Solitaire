@@ -3,6 +3,7 @@ package edu.smcm.ai.genetic.programming;
 import java.util.List;
 import java.util.Random;
 
+import edu.smcm.ai.genetic.Context;
 import edu.smcm.util.ImplementationErrorException;
 
 public class GeneratorExample {

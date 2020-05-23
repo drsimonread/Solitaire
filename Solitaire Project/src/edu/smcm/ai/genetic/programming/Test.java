@@ -3,6 +3,8 @@ package edu.smcm.ai.genetic.programming;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.smcm.ai.genetic.Context;
+
 public class Test {
 
 	private static class TestVariable extends Variable {
