@@ -124,3 +124,6 @@ which score fairly high.
 What can we do about this?  Will Genetic Programming overcome the problem?  Probably only
 if the program can consider all the moves.  Part of the problem is that discovery is 10
 or nothing.
+
+The way crossover works we need to have significant genes (that we want to vary frequently)
+near the center of the genome.  We should try an experiment where we vary the order of the genes.

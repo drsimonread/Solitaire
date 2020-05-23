@@ -3,6 +3,15 @@ package edu.smcm.ai.examples.solitaire.spider;
 import java.util.List;
 import java.util.Scanner;
 
+import edu.smcm.ai.examples.solitaire.spider.heuristics.CreatedEmptyStack;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.DealNewRow;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.DirtyFlush;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.Discovery;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.FillsEmptyStack;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.NumberOfCards;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.OpensMoveStackDestination;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.StraightFlush;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.TopMoved;
 import edu.smcm.util.Util;
 
 public class PlayGame {

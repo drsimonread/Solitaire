@@ -1,9 +1,19 @@
-package edu.smcm.ai.examples.solitaire.spider;
+package edu.smcm.ai.examples.solitaire.spider.algorithm;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import edu.smcm.ai.examples.solitaire.spider.Game;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.CreatedEmptyStack;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.DealNewRowRecogniser;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.DirtyFlush;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.Discovery;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.FillsEmptyStack;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.NumberOfCards;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.OpensMoveStackDestination;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.StraightFlush;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.TopMoved;
 import edu.smcm.ai.genetic.algorithm.Genotype;
 import edu.smcm.ai.genetic.algorithm.Individual;
 import edu.smcm.ai.genetic.algorithm.Population;

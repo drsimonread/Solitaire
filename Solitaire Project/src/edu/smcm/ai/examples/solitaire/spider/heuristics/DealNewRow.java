@@ -1,4 +1,6 @@
-package edu.smcm.ai.examples.solitaire.spider;
+package edu.smcm.ai.examples.solitaire.spider.heuristics;
+
+import edu.smcm.ai.examples.solitaire.spider.Move;
 
 public class DealNewRow extends Move {
 

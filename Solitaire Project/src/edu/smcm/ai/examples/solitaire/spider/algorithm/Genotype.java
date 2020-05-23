@@ -1,4 +1,4 @@
-package edu.smcm.ai.genetic.algorithm;
+package edu.smcm.ai.examples.solitaire.spider.algorithm;
 
 import java.io.PrintStream;
 import java.util.ArrayList;

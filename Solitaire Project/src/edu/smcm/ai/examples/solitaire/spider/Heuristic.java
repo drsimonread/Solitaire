@@ -1,5 +1,7 @@
 package edu.smcm.ai.examples.solitaire.spider;
 
+import edu.smcm.ai.examples.solitaire.spider.heuristics.DealNewRow;
+
 public abstract class Heuristic {
 	
 	public static int true_value;

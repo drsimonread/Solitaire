@@ -6,6 +6,15 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import edu.smcm.ai.examples.solitaire.spider.heuristics.CreatedEmptyStack;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.DealNewRowRecogniser;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.DirtyFlush;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.Discovery;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.FillsEmptyStack;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.NumberOfCards;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.OpensMoveStackDestination;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.StraightFlush;
+import edu.smcm.ai.examples.solitaire.spider.heuristics.TopMoved;
 import edu.smcm.ai.genetic.algorithm.Genotype;
 
 public class Visualise {

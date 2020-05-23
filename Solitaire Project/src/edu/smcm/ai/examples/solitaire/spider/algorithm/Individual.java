@@ -1,4 +1,4 @@
-package edu.smcm.ai.genetic.algorithm;
+package edu.smcm.ai.examples.solitaire.spider.algorithm;
 
 import java.io.PrintStream;
 import java.util.List;
@@ -6,7 +6,6 @@ import java.util.Random;
 
 import edu.smcm.ai.examples.solitaire.spider.Game;
 import edu.smcm.ai.examples.solitaire.spider.Player;
-import edu.smcm.ai.examples.solitaire.spider.algorithm.Fitness;
 
 public class Individual implements Comparable<Individual> {
 

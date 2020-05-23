@@ -1,4 +1,8 @@
-package edu.smcm.ai.examples.solitaire.spider;
+package edu.smcm.ai.examples.solitaire.spider.heuristics;
+
+import edu.smcm.ai.examples.solitaire.spider.Game;
+import edu.smcm.ai.examples.solitaire.spider.Heuristic;
+import edu.smcm.ai.examples.solitaire.spider.MoveStack;
 
 public class NumberOfCards extends Heuristic {
 

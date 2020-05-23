@@ -1,4 +1,4 @@
-package edu.smcm.ai.examples.solitaire.spider;
+package edu.smcm.ai.examples.solitaire.spider.algorithm;
 
 public class Fitness {
 	private double sun_score;

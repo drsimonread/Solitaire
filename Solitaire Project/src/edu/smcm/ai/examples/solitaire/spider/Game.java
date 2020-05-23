@@ -11,6 +11,7 @@ import edu.smcm.util.Util;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.smcm.ai.examples.solitaire.spider.heuristics.DealNewRow;
 import edu.smcm.games.cards.Card;
 
 public class Game {
