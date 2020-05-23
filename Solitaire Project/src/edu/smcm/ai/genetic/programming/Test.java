@@ -70,6 +70,10 @@ public class Test {
 		public List<Variable> realVariables() {
 			return reals;
 		}
+		
+		public TestContext clone() {
+			return this;
+		}
 	}
 	
 	// TODO This should probably be replaced with JUnit though I'm not sure how that would work.
