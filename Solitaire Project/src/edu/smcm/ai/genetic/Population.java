@@ -25,7 +25,7 @@ import java.util.Random;
  * could lead to rounding errors causing the population to increase or decrease
  * in size over time.
  */
-public class Population {
+public class Population<I extends Individual> {
 
 	/**
 	 * A random number generator.
@@ -76,7 +76,7 @@ public class Population {
 	/**
 	 * The list of Individuals currently in the Population.
 	 */
-	private List<Individual> individuals;
+	private List<I> individuals;
 
 	/**
 	 * Set the random number generator used by this class.
@@ -88,68 +88,98 @@ public class Population {
 	public static void random(Random random) {
 		Population.random = random;
 	}
+	
+	/**
+	 * Allow subclasses to access random number generator.
+	 * 
+	 * @return The random number generator.
+	 */
+	protected Random random() {
+		return random;
+	}
 
 	/**
 	 * Create a population of random Individuals
 	 * 
 	 * TODO Needs some way of creating random individuals.
 	 */
-	public Population() {
-		// TODO We can precisely size this ArrayList
-		this.individuals = new ArrayList<Individual>();
+	@SuppressWarnings("unchecked")
+	public Population(Factory factory) {
+		int population;
 
 		// Set default values for various populations
-		fittest_population = 100;
-		weakest_population = 100;
-		crossover_population = 790;
-		mutation_population = 10;
+		this.fittest_population = 100;
+		this.weakest_population = 100;
+		this.crossover_population = 790;
+		this.mutation_population = 10;
+
+		// Set a variable for the total population because it makes code prettier
+		population = fittest_population + weakest_population + 
+				crossover_population + mutation_population;
+
+		// Create the ArrayList for the population
+		// Choose ArrayList because we want to sort and reverse it a lot
+		this.individuals = new ArrayList<I>(population);
 
 		// Set default values for mutation and crossover policies
-		limited_crossover = true;
-		limited_mutation = true;
-		
-		
-//		for (int count = 0; count < population; count++) {
-//			individuals.add(new Individual());
-//		}
+		this.limited_crossover = true;
+		this.limited_mutation = true;
+
+		// Actually create all the individuals in the population using the supplied Factory
+		for (int count = 0; count < population; count++) {
+			// TODO Do something about making a sensible error message if this cast fails?
+			individuals.add((I) factory.makeIndividual());
+		}
 	}
 
 	/**
-	 * Set the number of fittest members of the population selected. 
+	 * Allow access to individuals from extending classes.
+	 * 
+	 * This is mostly to allow extending classes to print the population as it
+	 * evolves.
+	 * 
+	 * @return The individuals in the population.
+	 */
+	protected List<I> individuals() {
+		return individuals;
+	}
+
+	/**
+	 * Set the number of fittest members of the population selected.
 	 * 
 	 * @param fittest_population Size of the fittest population.
 	 */
-	public void fittest_population(int fittest_population)  {
+	public void fittest_population(int fittest_population) {
 		this.fittest_population = fittest_population;
 	}
-	
+
 	/**
-	 * Set the number of weakest members of the population selected. 
+	 * Set the number of weakest members of the population selected.
 	 * 
 	 * @param weakest_population Size of the weakest population.
 	 */
-	public void weakest_population(int weakest_population)  {
+	public void weakest_population(int weakest_population) {
 		this.weakest_population = weakest_population;
 	}
-	
+
 	/**
-	 * Set the number of members of the population created by crossover. 
+	 * Set the number of members of the population created by crossover.
 	 * 
 	 * @param crossover_population Size of the crossover population.
 	 */
-	public void crossover_population(int crossover_population)  {
+	public void crossover_population(int crossover_population) {
 		this.crossover_population = crossover_population;
 	}
 
 	/**
-	 * Set the number of members of the population created by mutation. 
+	 * Set the number of members of the population created by mutation.
 	 * 
 	 * @param mutation_population Size of the mutation population.
 	 */
-	public void mutation_population(int mutation_population)  {
+	public void mutation_population(int mutation_population) {
 		this.mutation_population = mutation_population;
 	}
-	
+
 	/**
 	 * Cause this Population to use limited crossover.
 	 * 
@@ -181,16 +211,17 @@ public class Population {
 	 * 
 	 * @param context the Context in which evaluation will take place.
 	 */
+	@SuppressWarnings("unchecked")
 	public void generation(Context context) {
-		List<Individual> next_generation; // The individuals in the next generation.
-		Individual left;  // The left member in a crossover.
-		Individual right; // The right member in a crossover.
+		List<I> next_generation; // The individuals in the next generation.
+		I left; // The left member in a crossover.
+		I right; // The right member in a crossover.
 
 		// Generate the array to hold all the Individuals in the next generation.
-		next_generation = new ArrayList<Individual>(individuals.size());
+		next_generation = new ArrayList<I>(individuals.size());
 
 		// Evaluate all the individuals in this generation in the provided context.
-		for (Individual individual : individuals) {
+		for (I individual : individuals) {
 			individual.evaluate(context);
 		}
 
@@ -211,35 +242,45 @@ public class Population {
 			// TODO An individual can crossover with itself, but this is rare
 			if (limited_crossover) {
 				// Crossover only occurs in members already selected for the next generation
-				// TODO Crossover can occur with an Individual that's already been subjected to crossover!
+				// TODO Crossover can occur with an Individual that's already been subjected to
+				// crossover!
 				left = next_generation.get(random.nextInt(next_generation.size()));
 				right = next_generation.get(random.nextInt(next_generation.size()));
 			} else {
-				//  Crossover occurs between any members of the previous generation
+				// Crossover occurs between any members of the previous generation
 				left = individuals.get(random.nextInt(individuals.size()));
 				right = individuals.get(random.nextInt(individuals.size()));
 			}
 
 			// Actually perform the crossover
-			next_generation.add(left.crossover(right));
+			// NOTE: The cast is necessary as crossover is only bound tp return something of
+			// class Interface, not something of class I which extends Interface.
+			// TODO Do something about making a sensible error message if this cast fails?
+			next_generation.add((I) left.crossover(right));
 		}
 
 		// Mutate some of the population
 		for (int count = 0; count < mutation_population; count++) {
 			if (limited_mutation) {
 				// Mutation only occurs in the population already selected
-				// TODO This includes individuals that have already been subject to crossover of mutation!
+				// TODO This includes individuals that have already been subject to crossover of
+				// mutation!
 				left = next_generation.get(random.nextInt(next_generation.size()));
 			} else {
 				// Mutation occurs in any member of the previous population.
 				left = individuals.get(random.nextInt(individuals.size()));
 			}
-			
+
 			// Actually perform the mutation
-			next_generation.add(left.mutate());
+			// NOTE: The cast is necessary as crossover is only bound tp return something of
+			// class Interface, not something of class I which extends Interface.
+			next_generation.add((I) left.mutate());
 		}
 
 		// Make the temporary population the next generation
 		individuals = next_generation;
-	}
+	} 
+	
+	// TODO Add an evolve method that iterates generation and creates a new Context (optionally)
+	// Termination conditions?
 }
