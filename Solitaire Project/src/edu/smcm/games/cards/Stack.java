@@ -1,18 +1,22 @@
 package edu.smcm.games.cards;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
+ * A representation of a stack of Cards.
  * 
- * 
- * This class cannot extend java.util.Stack because of the face up/face down
- * issue. We would need to make a special class of Card, which might be a good
- * idea.
+ * TODO Make this class extends java.util.Stack.
  * 
  */
 public class Stack {
 
+	/**
+	 * The Cards represented by the Stack,
+	 * 
+	 * The top card is the last one in the List to prevent a lot of shuffling.
+	 */
 	private List<Card> cards;
 
 	/**
@@ -68,7 +72,7 @@ public class Stack {
 	 * top of the stack after position pops.
 	 * 
 	 * @param position
-	 * @return
+	 * @return The Card at the given position.
 	 */
 	public Card peek(int position) {
 		return cards.get(size() - position - 1);
@@ -89,24 +93,27 @@ public class Stack {
 	public Stack pop(int number) throws NotEnoughCardsException, CardsFaceDownException {
 		Stack result;
 		
+		// Create the Stack to be returned
 		result = new Stack(number);
 		
+		// Check for errors
 		if (cards.size() < number) {
 			throw new NotEnoughCardsException(cards.size(), number);
 		} else if (!peek(number - 1).faceUp()) {
 			throw new CardsFaceDownException(number - 1);
 		} else {
 			
-			/* Copy cards in reverse order into new Stack */
-			// TODO I think this loop is upside down but it works
+			
+			// TODO This reverses the order of the Cards in the Stack.
+			// We get away with it because we also reverse it when we push the whole new stack.
+			
+			// Copy cards in reverse order into new Stack
 			for (int count = 0; count < number; count++) {
 				result.cards.add(this.peek(count));
-			}
-			
-			/* Remove copied cards */
-			for (int count = 0; count < number; count++) {
 				pop();
 			}
+
+//			Collection.reverse(result);
 			
 			return result;
 		}	
@@ -128,18 +135,33 @@ public class Stack {
 		}	
 	}
 
+	/**
+	 * Turn the top cards of the STack face up.
+	 */
 	public void flipTopCard() {
 		this.cards.get(size() - 1).turnUp();
 	}
 
+	/**
+	 * Stack contains no Cards.
+	 * 
+	 * @return True if Stack contains no cards.
+	 */
 	public boolean isEmpty() {
 		return size() == 0;
 	}
 	
+	/**
+	 * The number of cards in the Stack.
+	 * 
+	 * @return The number of Cards in the Stack.
+	 */
 	public int size() {
 		return cards.size();
 	}
 	
+
+	@Override
 	public String toString() {
 		String result;
 		
