@@ -1,8 +1,8 @@
 package edu.smcm.ai.examples.solitaire.spider.heuristics;
 
 import edu.smcm.ai.examples.solitaire.spider.Game;
-import edu.smcm.ai.examples.solitaire.spider.Heuristic;
 import edu.smcm.ai.examples.solitaire.spider.MoveStack;
+import edu.smcm.ai.genetic.algorithm.Heuristic;
 
 public class DirtyFlush extends Heuristic {
 

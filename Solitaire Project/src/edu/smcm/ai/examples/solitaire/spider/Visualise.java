@@ -16,6 +16,7 @@ import edu.smcm.ai.examples.solitaire.spider.heuristics.OpensMoveStackDestinatio
 import edu.smcm.ai.examples.solitaire.spider.heuristics.StraightFlush;
 import edu.smcm.ai.examples.solitaire.spider.heuristics.TopMoved;
 import edu.smcm.ai.genetic.algorithm.Genotype;
+import edu.smcm.ai.genetic.algorithm.Heuristic;
 
 public class Visualise {
 

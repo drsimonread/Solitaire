@@ -1,80 +1,115 @@
 package edu.smcm.ai.genetic.algorithm;
 
-import java.io.PrintStream;
 import java.util.Random;
 
-import edu.smcm.ai.examples.solitaire.spider.Game;
-import edu.smcm.ai.examples.solitaire.spider.Heuristic;
-import edu.smcm.ai.examples.solitaire.spider.Move;
-import edu.smcm.ai.examples.solitaire.spider.MoveStack;
-import edu.smcm.ai.examples.solitaire.spider.heuristics.DealNewRow;
-
+/**
+ * In Genetic Algorithms a Gene is simply a Heuristic for evaluating a Context
+ * and a weight for that Gene.
+ */
 public class Gene {
 
+	/**
+	 * A random number generator.
+	 */
+	private static Random random;
+
+	/**
+	 * The weight of this Gene.
+	 */
 	private double weight;
+
+	/**
+	 * The heuristic associated with this Gene.
+	 */
 	private Heuristic heuristic;
-	
-	// TODO Make this static and set externally at the start of the run
-	private Random random;
-	
-	public Gene(double weight, Heuristic heuristic, Random random) {
+
+	static {
+		// Set a default random number generator
+		Gene.random = new Random();
+	}
+
+	/**
+	 * All-arguments constructor for a Gene.
+	 * 
+	 * @param weight    The initial weight of the Gene.
+	 * @param heuristic The Heuristic associated with this Gene.
+	 */
+	public Gene(double weight, Heuristic heuristic) {
 		this.weight = weight;
 		this.heuristic = heuristic;
-		this.random = random;
 	}
-	
+
+	/**
+	 * A constructor for a Gene that initialises a random weight.
+	 * 
+	 * @param heuristic The Heuristic associated with this Gene.
+	 */
+	public Gene(Heuristic heuristic) {
+		this.weight = random.nextDouble();
+		this.heuristic = heuristic;
+	}
+
+	/**
+	 * A copy constructor for a Gene.
+	 * 
+	 * TODO Is this necessary?
+	 * 
+	 * @param that The Gene to be copied.
+	 */
 	public Gene(Gene that) {
 		this.weight = that.weight;
 		this.heuristic = that.heuristic;
-		this.random = that.random;
-	}
-	
-	public double evaluate(Game game, Move move) {
-		double result;
-		
-		if (move instanceof MoveStack) {
-			result = weight * heuristic.value(game, (MoveStack) move);
-		} else {
-			result = weight * heuristic.value(game, (DealNewRow) move);
-		}
-		
-		return result;
-	}
-	
-	public String visualise(Game game, Move move) {
-		int value;
-		
-		if (move instanceof MoveStack) {
-			value = heuristic.value(game, (MoveStack) move);
-		} else {
-			value = heuristic.value(game, (DealNewRow) move);
-		}
-
-		return String.format("%1$ 4.2f*%2$ 3d=%3$ 5.2f", weight, value, weight * value);
-	}
-	
-	public String visualiseTitle() {
-		return String.format("%1$-16s", heuristic.abbreviation());
-	}
-	
-	public String title() {
-		return String.format("%1$-12s", heuristic.abbreviation());
-	}
-	
-	public Gene mutate() {
-		Gene result;
-		
-		result = new Gene(this);
-		result.weight = random.nextDouble();
-		
-		return result;
 	}
 
-	public void dumpCSV(PrintStream output) {
-		output.print(weight + ", ");
+	/**
+	 * Set the random number generator to be the system-wide one.
+	 * 
+	 * @param random The system-wide random number generator.
+	 */
+	public static void random(Random random) {
+		Gene.random = random;
+	}
+
+	/**
+	 * Allow access to random number generator in subclasses.
+	 * 
+	 * @return The random number generator.
+	 */
+	protected Random random() {
+		return random;
+	}
+
+	/**
+	 * Accessor for weight.
+	 * 
+	 * @return The weight associated with this Gene.
+	 */
+	public double weight() {
+		return weight;
+	}
+
+	/**
+	 * Mutator for weight.
+	 * 
+	 * @param weight The weight associated with this Gene.
+	 */
+	public void weight(double weight) {
+		this.weight = weight;
+	}
+
+	/**
+	 * Accessor for heuristic.
+	 * 
+	 * @return The heuristic associated with this Gene.
+	 */
+	public Heuristic heuristic() {
+		return heuristic;
 	}
 	
-	public String toString() {
-		return String.format("%1$ 9.8f ", weight);
+	/**
+	 * A method to cause mutation of a Gene.
+	 */
+	public void mutate() {
+		this.weight = random.nextFloat();
 	}
 }

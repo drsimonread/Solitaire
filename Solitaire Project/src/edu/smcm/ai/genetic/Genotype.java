@@ -2,24 +2,32 @@ package edu.smcm.ai.genetic;
 
 import java.util.Random;
 
+/**
+ * An abstract class to represent the central idea of a genotype.
+ * 
+ * The genotype will take on different forms for different genetic methods, but
+ * this class abstracts them so that they can be used in the general algorithm
+ * in Population.
+ */
 public abstract class Genotype {
 
 	/**
-	 * The system-wide random number generator. 
+	 * The system-wide random number generator.
 	 */
 	private static Random random;
-	
+
 	/**
 	 * Set the system-wide random number generator.
 	 * 
-	 * Failure to do this when initialising the program will result in a NullPointerException.
+	 * Failure to do this when initialising the program will result in a
+	 * NullPointerException.
 	 * 
 	 * @param random The system-wide random number generator.
 	 */
 	public static void random(Random random) {
 		Genotype.random = random;
 	}
-	
+
 	/**
 	 * Allow subclasses to access random number generator.
 	 * 
@@ -28,15 +36,7 @@ public abstract class Genotype {
 	protected Random random() {
 		return random;
 	}
-	
-	/**
-	 * Evaluate this Genotype in the Context.
-	 * 
-	 * @param context Context of evaluation.
-	 * @return fitness of Genotype in Context.
-	 */
-	public abstract double evaluate(Context context);
-	
+
 	/**
 	 * Provide a mutated *copy* of this Genotype.
 	 * 
@@ -45,7 +45,7 @@ public abstract class Genotype {
 	 * @return The mutated copy.
 	 */
 	public abstract Genotype mutate();
-	
+
 	/**
 	 * Provide a crossed over *copy* of this Genotype.
 	 * 

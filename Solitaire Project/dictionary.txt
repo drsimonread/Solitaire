@@ -1,2 +1,5 @@
-genotype
+accessor
 cloneable
+genotype
+genotypes
+mutator

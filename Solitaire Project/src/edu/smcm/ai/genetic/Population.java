@@ -99,9 +99,7 @@ public class Population<I extends Individual> {
 	}
 
 	/**
-	 * Create a population of random Individuals
-	 * 
-	 * TODO Needs some way of creating random individuals.
+	 * Create a population of random Individuals.
 	 */
 	@SuppressWarnings("unchecked")
 	public Population(Factory factory) {

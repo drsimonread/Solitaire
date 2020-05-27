@@ -1,9 +1,9 @@
 package edu.smcm.ai.examples.solitaire.spider.heuristics;
 
 import edu.smcm.ai.examples.solitaire.spider.Game;
-import edu.smcm.ai.examples.solitaire.spider.Heuristic;
 import edu.smcm.ai.examples.solitaire.spider.MoveStack;
 import edu.smcm.ai.examples.solitaire.spider.Range;
+import edu.smcm.ai.genetic.algorithm.Heuristic;
 import edu.smcm.games.cards.Card;
 import edu.smcm.games.cards.Suit;
 

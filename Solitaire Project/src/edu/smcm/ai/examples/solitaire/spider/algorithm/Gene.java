@@ -4,10 +4,10 @@ import java.io.PrintStream;
 import java.util.Random;
 
 import edu.smcm.ai.examples.solitaire.spider.Game;
-import edu.smcm.ai.examples.solitaire.spider.Heuristic;
 import edu.smcm.ai.examples.solitaire.spider.Move;
 import edu.smcm.ai.examples.solitaire.spider.MoveStack;
 import edu.smcm.ai.examples.solitaire.spider.heuristics.DealNewRow;
+import edu.smcm.ai.genetic.algorithm.Heuristic;
 
 public class Gene {
 

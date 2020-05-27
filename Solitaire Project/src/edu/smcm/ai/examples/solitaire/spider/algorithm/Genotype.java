@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Random;
 
 import edu.smcm.ai.examples.solitaire.spider.Game;
-import edu.smcm.ai.examples.solitaire.spider.Heuristic;
 import edu.smcm.ai.examples.solitaire.spider.Move;
+import edu.smcm.ai.genetic.algorithm.Heuristic;
 
 public class Genotype extends edu.smcm.ai.genetic.Genotype {
 
