@@ -20,11 +20,7 @@ public class Genotype extends edu.smcm.ai.genetic.Genotype {
 		genes.add(new Gene(heuristic));
 	}
 	
-	public void addGene(double weight, Heuristic heuristic) {
-		genes.add(new Gene(weight, heuristic));
-	}
-	
-	public void addGene(Gene gene) {
+	private void addGene(Gene gene) {
 		genes.add(gene);
 	}
 	

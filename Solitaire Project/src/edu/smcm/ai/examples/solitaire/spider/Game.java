@@ -197,11 +197,12 @@ public class Game {
 	 * @param to   the Position Cards are being moved to
 	 * @return the move is legal
 	 */
-	private boolean isLegalMove(int from, int cards, int to) {
+	private boolean isLegalMove(Move move) {
 		boolean result;
 
-		result = (stacks[to].isEmpty() || (moveableStack(stacks[from], cards)
-				&& stacks[to].peek().value() == stacks[from].peek(cards - 1).value() + 1));
+		// TODO Check this and that it checks that there are enough cards to be moved!
+		result = move.from() == 99 || ((stacks[move.to()].isEmpty() || (moveableStack(stacks[move.from()], move.cards())
+				&& stacks[move.to()].peek().value() == stacks[move.from()].peek(move.cards() - 1).value() + 1)));
 
 		return result;
 	}
@@ -245,17 +246,20 @@ public class Game {
 	 * @throws CardsFaceDownException
 	 * @throws NotEnoughCardsException
 	 */
-	public void move(int from, int cards, int to)
+	public void move(Move move)
 			throws IllegalMoveException, NotEnoughCardsException, CardsFaceDownException {
 		Stack stack;
 
-		if (!isLegalMove(from, cards, to)) {
-			throw new IllegalMoveException(from, cards, to);
-		} else {
-			stack = stacks[from].pop(cards);
-			stacks[to].push(stack);
-			if (!stacks[from].isEmpty() && !stacks[from].peek().faceUp()) {
-				stacks[from].flipTopCard();
+		// TODO Make the magic number 99 disappear!
+		if (!isLegalMove(move)) {
+			throw new IllegalMoveException(move);
+		} else if (move.from() == 99) {
+			newRow();
+		} else 
+			stack = stacks[move.from()].pop(move.cards());
+			stacks[move.to()].push(stack);
+			if (!stacks[move.from()].isEmpty() && !stacks[move.from()].peek().faceUp()) {
+				stacks[move.from()].flipTopCard();
 			}
 		}
 
@@ -269,7 +273,6 @@ public class Game {
 		if (move instanceof MoveStack) {
 			move(((MoveStack) move).from(), ((MoveStack) move).cards(), ((MoveStack) move).to());
 		} else {
-			newRow();
 		}
 	}
 	

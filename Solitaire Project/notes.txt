@@ -127,3 +127,6 @@ or nothing.
 
 The way crossover works we need to have significant genes (that we want to vary frequently)
 near the center of the genome.  We should try an experiment where we vary the order of the genes.
+
+Added Random Boolean, Integer and Real Heuristics both so that each list of Heuristics has at 
+least one Heuristic and so that random factors can be considered in evolved algorithms.

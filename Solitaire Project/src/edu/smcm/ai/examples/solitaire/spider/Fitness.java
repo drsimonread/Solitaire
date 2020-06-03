@@ -1,6 +1,6 @@
-package edu.smcm.ai.examples.solitaire.spider.algorithm;
+package edu.smcm.ai.examples.solitaire.spider;
 
-public class Fitness {
+public class Fitness extends edu.smcm.ai.genetic.Fitness {
 	private double sun_score;
 	private double score_two;
 	private double windows_score;
@@ -83,13 +83,23 @@ public class Fitness {
 		this.games = this.games + 1;
 	}
 	
-	public void update(Fitness that) {
-		this.sun_score = this.sun_score + that.sun_score;
-		this.score_two = this.score_two + that.score_two;
-		this.windows_score = this.windows_score + that.sun_score;
-		this.wins = this.wins + that.wins;;
-		this.moves = this.moves + that.moves;
-		this.collected = this.collected + that.collected;
-		this.games = this.games + that.games;
+	public void update(edu.smcm.ai.genetic.Fitness that) {
+		Fitness t;
+		
+		t = (Fitness) that;
+		
+		this.sun_score = this.sun_score + t.sun_score;
+		this.score_two = this.score_two + t.score_two;
+		this.windows_score = this.windows_score + t.sun_score;
+		this.wins = this.wins + t.wins;;
+		this.moves = this.moves + t.moves;
+		this.collected = this.collected + t.collected;
+		this.games = this.games + t.games;
+	}
+
+	@Override
+	public int compareTo(edu.smcm.ai.genetic.Fitness that) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

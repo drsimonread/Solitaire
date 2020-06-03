@@ -2,7 +2,6 @@ package edu.smcm.ai.examples.solitaire.spider;
 
 import java.util.List;
 
-import edu.smcm.ai.examples.solitaire.spider.algorithm.Fitness;
 import edu.smcm.ai.genetic.algorithm.Genotype;
 import edu.smcm.games.cards.CardsFaceDownException;
 import edu.smcm.games.cards.NotEnoughCardsException;

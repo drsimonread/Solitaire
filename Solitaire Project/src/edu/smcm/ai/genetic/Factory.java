@@ -47,7 +47,7 @@ public abstract class Factory {
 	}
 
 	/**
-	 * Make a radomised Individual for the population.
+	 * Make a randomised Individual for the population.
 	 * 
 	 * @return A new random Individual.
 	 */
@@ -61,14 +61,14 @@ public abstract class Factory {
 	public abstract Individual makeIndividual(Genotype genotype);
 
 	/**
-	 * Make a radomised Genotype for an Individual.
+	 * Make a randomised Genotype for an Individual.
 	 * 
 	 * @return A new random Genotype for Individual.
 	 */
 	public abstract Genotype makeGenotype();
 
 	/**
-	 * Make a radomised Context in which to evaluate a population.
+	 * Make a randomised Context in which to evaluate a population.
 	 * 
 	 * @return A new random Context.
 	 */

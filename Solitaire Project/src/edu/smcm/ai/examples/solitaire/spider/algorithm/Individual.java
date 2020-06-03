@@ -4,6 +4,7 @@ import java.io.PrintStream;
 import java.util.List;
 import java.util.Random;
 
+import edu.smcm.ai.examples.solitaire.spider.Fitness;
 import edu.smcm.ai.examples.solitaire.spider.Game;
 import edu.smcm.ai.examples.solitaire.spider.Player;
 

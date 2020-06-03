@@ -8,6 +8,15 @@ package edu.smcm.ai.genetic;
 public abstract class Fitness implements Comparable<Fitness> {
 
 	/**
+	 * Update this Fitness using another.
+	 * 
+	 * Used to create a cumulative Fitness over several evaluations of a Genotype.
+	 * 
+	 * @param fitness The Fitness to update with.
+	 */
+	public abstract void update(Fitness fitenss);
+
+	/**
 	 * Compare two fitnesses.
 	 * 
 	 * Necessary to rank a population in terms of Fitness.

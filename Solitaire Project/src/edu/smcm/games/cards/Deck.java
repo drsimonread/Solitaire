@@ -26,7 +26,7 @@ public class Deck {
 
 	// TODO Add constructor for a Deck in Bridge order.
 	
-	// TODO Add a constructor for a Deck with Jacks.
+	// TODO Add a constructor for a Deck with Jokers.
 	
 	/**
 	 * Deal the top card from the deck.
