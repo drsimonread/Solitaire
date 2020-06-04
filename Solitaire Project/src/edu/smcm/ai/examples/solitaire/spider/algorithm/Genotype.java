@@ -16,9 +16,12 @@ import edu.smcm.ai.examples.solitaire.spider.heuristics.OpensMoveStackDestinatio
 import edu.smcm.ai.examples.solitaire.spider.heuristics.StraightFlush;
 import edu.smcm.ai.examples.solitaire.spider.heuristics.TopMoved;
 import edu.smcm.ai.genetic.algorithm.Heuristic;
+import edu.smcm.ai.genetic.algorithm.RandomBoolean;
+import edu.smcm.ai.genetic.algorithm.RandomInteger;
+import edu.smcm.ai.genetic.algorithm.RandomReal;
 
 public class Genotype extends edu.smcm.ai.genetic.algorithm.Genotype {
-	// TODO These lists appear in two places now... Genotype and Context
+
 	private static List<Heuristic> boolean_heuristic;
 	private static List<Heuristic> integer_heuristic;
 	private static List<Heuristic> real_heuristic;
@@ -30,7 +33,7 @@ public class Genotype extends edu.smcm.ai.genetic.algorithm.Genotype {
 		
 		boolean_heuristic.add(new RandomBoolean());
 		integer_heuristic.add(new RandomInteger());
-		real_heuristic.add(new RandomDouble());
+		real_heuristic.add(new RandomReal());
 		
 		integer_heuristic.add(new StraightFlush());
 		integer_heuristic.add(new DirtyFlush());
@@ -44,7 +47,6 @@ public class Genotype extends edu.smcm.ai.genetic.algorithm.Genotype {
 
 	}
 
-	
 	public Genotype() {
 		super();
 	}

@@ -1,9 +1,7 @@
 package edu.smcm.ai.genetic;
 
 public abstract class Context {
-		
-		public abstract Context clone();
-		
+				
 		/**
 		 * Evaluate an Individual's Genotype within a Context to get its Fitness.
 		 * 

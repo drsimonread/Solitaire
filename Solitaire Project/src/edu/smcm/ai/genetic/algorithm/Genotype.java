@@ -24,6 +24,12 @@ public class Genotype extends edu.smcm.ai.genetic.Genotype {
 		genes.add(gene);
 	}
 	
+	// TODO Should we take a copy of genes first?
+	// TODO Should we provide an iterator instead?
+	public List<Gene> genes() {
+		return genes;
+	}
+	
 	@Override
 	public Genotype mutate() {
 		Genotype result;
