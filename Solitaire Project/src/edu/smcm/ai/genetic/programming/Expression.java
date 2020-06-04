@@ -2,12 +2,12 @@ package edu.smcm.ai.genetic.programming;
 
 import edu.smcm.ai.genetic.Context;
 
-public abstract class Expression {
+public abstract class Expression implements PrettyPrintable {
 	public abstract Value evaluate(Context context);
 	public abstract OperatorType type();
-	public abstract String prettyPrint(int level);
 	
-	// TODO There has to be a more efficient way of doing this
+	// TODO There has to be a more efficient way of creating a fixed number of spaces
+	// TODO This belongs somehow to PrettyPrintable
 	protected String spaces(int number) {
 		String result;
 		
