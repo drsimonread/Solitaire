@@ -2,13 +2,21 @@ package edu.smcm.ai.examples.solitaire.spider.heuristics;
 
 import edu.smcm.ai.examples.solitaire.spider.Game;
 import edu.smcm.ai.examples.solitaire.spider.Move;
-import edu.smcm.ai.genetic.algorithm.Heuristic;
+import edu.smcm.ai.examples.solitaire.spider.algorithm.Subcontext;
+import edu.smcm.ai.genetic.programming.Boolean;
+import edu.smcm.ai.genetic.programming.Value;
 
-public class CreatedEmptyStack extends Heuristic {
+public class CreatedEmptyStack extends edu.smcm.ai.genetic.algorithm.Heuristic {
 
 	@Override
-	public int value(Game game, Move move) {
-		return game.cardsInStack(move.from()) == move.cards() ? true_value : false_value;
+	public Value evaluate(edu.smcm.ai.genetic.algorithm.Subcontext subcontext) {
+		Game game;
+		Move move;
+		
+		game = ((Subcontext) subcontext).game();
+		move = ((Subcontext) subcontext).move();
+		
+		return new Boolean(game.cardsInStack(move.from()) == move.cards());
 	}
 
 	@Override

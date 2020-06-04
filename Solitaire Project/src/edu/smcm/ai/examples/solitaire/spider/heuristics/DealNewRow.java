@@ -1,19 +1,22 @@
 package edu.smcm.ai.examples.solitaire.spider.heuristics;
 
-import edu.smcm.ai.examples.solitaire.spider.Move;
+import edu.smcm.ai.genetic.programming.Boolean;
+import edu.smcm.ai.genetic.programming.Value;
 
-public class DealNewRow extends Heuristic {
+public class DealNewRow extends edu.smcm.ai.genetic.algorithm.Heuristic {
 
-	public DealNewRow() {
-		super(99, 1, 1);
+	@Override
+	public Value evaluate(edu.smcm.ai.genetic.algorithm.Subcontext subcontext) {
+		return new Boolean(true);
 	}
-	
-	public Object clone() throws CloneNotSupportedException {
-		return super.clone();
+
+	@Override
+	public String abbreviation() {
+		return "DNR";
 	}
-	
-	public String toString() {
-		return "99  1  1";
+
+	@Override
+	public String fullName() {
+		return "Deal New Row";
 	}
-	
 }

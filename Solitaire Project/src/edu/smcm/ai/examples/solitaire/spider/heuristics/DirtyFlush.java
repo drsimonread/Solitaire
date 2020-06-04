@@ -1,8 +1,11 @@
 package edu.smcm.ai.examples.solitaire.spider.heuristics;
 
 import edu.smcm.ai.examples.solitaire.spider.Game;
-import edu.smcm.ai.examples.solitaire.spider.MoveStack;
+import edu.smcm.ai.examples.solitaire.spider.Move;
+import edu.smcm.ai.examples.solitaire.spider.algorithm.Subcontext;
 import edu.smcm.ai.genetic.algorithm.Heuristic;
+import edu.smcm.ai.genetic.programming.Value;
+import edu.smcm.ai.genetic.programming.Integer;
 
 public class DirtyFlush extends Heuristic {
 
@@ -18,10 +21,15 @@ public class DirtyFlush extends Heuristic {
 	 * solitaire.spider.MoveStack)
 	 */
 	@Override
-	public int value(Game game, MoveStack move) {
+	public Value evaluate(edu.smcm.ai.genetic.algorithm.Subcontext subcontext) {
+		Game game;
+		Move move;
 		int before_length;
 		int after_length;
 		int base;
+		
+		game = ((Subcontext) subcontext).game();
+		move = ((Subcontext) subcontext).move();
 
 		// Assume that the cards being moved are a proper moveableSequence
 		// The difference in the lengths of the straights will be the difference between
@@ -43,7 +51,7 @@ public class DirtyFlush extends Heuristic {
 			after_length = after_length + 1;
 		}
 
-		return after_length - before_length;
+		return new Integer(after_length - before_length);
 	}
 
 	@Override

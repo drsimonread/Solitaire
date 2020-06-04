@@ -1,9 +1,12 @@
 package edu.smcm.ai.examples.solitaire.spider.heuristics;
 
 import edu.smcm.ai.examples.solitaire.spider.Game;
-import edu.smcm.ai.examples.solitaire.spider.MoveStack;
+import edu.smcm.ai.examples.solitaire.spider.Move;
 import edu.smcm.ai.examples.solitaire.spider.Range;
+import edu.smcm.ai.examples.solitaire.spider.algorithm.Subcontext;
 import edu.smcm.ai.genetic.algorithm.Heuristic;
+import edu.smcm.ai.genetic.programming.Value;
+import edu.smcm.ai.genetic.programming.Boolean;
 import edu.smcm.games.cards.Card;
 import edu.smcm.games.cards.Suit;
 
@@ -44,22 +47,28 @@ public class OpensMoveStackDestination extends Heuristic {
 	}
 
 	@Override
-	public int value(Game game, MoveStack move) {
+	public Value evaluate(edu.smcm.ai.genetic.algorithm.Subcontext subcontext) {
+		Game game;
+		Move move;
 		Range moved;
 		Range moveable;
 		Card exposed;
 
+		game = ((Subcontext) subcontext).game();
+		move = ((Subcontext) subcontext).move();
+		
 		moved = moveableRange(game, move.from(), 0);
 
 		if (game.cardsInStack(move.from()) <= moved.size() ||
 				!game.cardAt(move.from(), moved.size()).faceUp()) {
 			// If we empty the stack that's another Heuristic
 			// If it's face down then we can't reason with it
-			return false_value;
+			return new Boolean(false);
 		} else {
 			exposed = game.cardAt(move.from(), moved.size());
 
 			// WARNING: Loop contains return statements
+			// TODO Avoid this!
 			for (int stack = 0; stack < Game.number_of_stacks; stack++) {
 				if (stack != move.from() && game.cardsInStack(stack) != 0) {
 					moveable = moveableRange(game, stack, 0);
@@ -67,19 +76,19 @@ public class OpensMoveStackDestination extends Heuristic {
 						// Check to see if we've exposed the bottom part of a sequence
 						if (moveable.contains(moved.bottom())
 								|| moveable.top() + 1 == moved.bottom()) {
-							return true_value;
+							return new Boolean(true);
 						}
 					} else {
 						// Check to see if the stack could move some cards to the exposed card
 						if (moveable.contains(exposed.value())
 								|| moveable.top() + 1 == exposed.value()) {
-							return true_value;
+							return new Boolean(true);
 						}
 					}
 				}
 			}
 
-			return false_value;
+			return new Boolean(false);
 		}
 	}
 
