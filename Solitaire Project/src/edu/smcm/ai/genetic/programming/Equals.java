@@ -13,7 +13,7 @@ public class Equals extends BinaryOperator {
 		return OperatorType.Relational;
 	}
 	
-	// TODO I'd like to restrict this to Integers only but that will make crossover and mutation hard.1q
+	// TODO I'd like to restrict this to Integers only but that will make crossover and mutation hard.
 	
 	@Override
 	public Value evaluate(Context context) {

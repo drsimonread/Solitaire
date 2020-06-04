@@ -8,14 +8,10 @@ import edu.smcm.ai.examples.solitaire.spider.Fitness;
 import edu.smcm.ai.examples.solitaire.spider.Game;
 import edu.smcm.ai.examples.solitaire.spider.Player;
 
-public class Individual implements Comparable<Individual> {
+public class Individual extends edu.smcm.ai.genetic.Individual {
 
 	private static final Player player;
-	
-	private Fitness fitness;
-	private Genotype genotype;
-	private Random random;
-	
+
 	static {
 		player = new Player();
 	}
@@ -23,7 +19,6 @@ public class Individual implements Comparable<Individual> {
 	public Individual(Genotype genotype, Random random) {
 		this.fitness = new Fitness();
 		this.genotype = new Genotype(genotype);
-		this.random = random;
 	}
 	
 	public void evaluateFitness(List<Game> games) {
@@ -34,20 +29,6 @@ public class Individual implements Comparable<Individual> {
 			game_copy = new Game(game);
 			fitness.update(player.play(game_copy, genotype));
 		}
-	}
-	
-	public Individual crossover(Individual other) {
-		return new Individual(genotype.crossover(other.genotype), random);
-	}
-
-	public Individual mutate() {
-		return new Individual(new Genotype(genotype).mutate(), random);
-	}
-	
-	// TODO Make comparators for various fitness criteria and allow them to be used
-	@Override
-	public int compareTo(Individual that) {
-		return Double.compare(fitness.scoreTwo(), ((Individual) that).fitness.scoreTwo());
 	}
 	
 	public void dumpCSV(PrintStream output) {

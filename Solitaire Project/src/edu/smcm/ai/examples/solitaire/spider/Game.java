@@ -1,4 +1,4 @@
- package edu.smcm.ai.examples.solitaire.spider;
+package edu.smcm.ai.examples.solitaire.spider;
 
 import edu.smcm.games.cards.Cards;
 import edu.smcm.games.cards.CardsFaceDownException;
@@ -18,6 +18,7 @@ public class Game {
 
 	public static final int number_of_stacks;
 	private static final int number_of_reserved_cards;
+	private static final int number_of_cards_dealt;
 
 	/**
 	 * The stacks of cards in the game.
@@ -37,12 +38,13 @@ public class Game {
 	private int collected;
 
 	private int moves;
-	
+
 	private boolean lost;
 
 	static {
 		number_of_stacks = 10;
 		number_of_reserved_cards = 50;
+		number_of_cards_dealt = 104;
 	}
 
 	private void initialiseStacks(int suits) {
@@ -51,11 +53,11 @@ public class Game {
 		Card card;
 		int index;
 
-		cards = new ArrayList<Card>(104);
+		cards = new ArrayList<Card>(number_of_cards_dealt);
 
 		// Select 104 cards from the right suits
 		deck = new Deck();
-		while (cards.size() < 104) {
+		while (cards.size() < number_of_cards_dealt) {
 			if (deck.isEmpty()) {
 				deck = new Deck();
 			}
@@ -201,7 +203,7 @@ public class Game {
 		boolean result;
 
 		// TODO Check this and that it checks that there are enough cards to be moved!
-		result = move.from() == 99 || ((stacks[move.to()].isEmpty() || (moveableStack(stacks[move.from()], move.cards())
+		result = move.from() == Move.deal_new_row || ((stacks[move.to()].isEmpty() || (moveableStack(stacks[move.from()], move.cards())
 				&& stacks[move.to()].peek().value() == stacks[move.from()].peek(move.cards() - 1).value() + 1)));
 
 		return result;
@@ -236,7 +238,7 @@ public class Game {
 			}
 		}
 	}
-	
+
 	/**
 	 * Move a stack of cards from one stack to another.
 	 * 
@@ -246,8 +248,7 @@ public class Game {
 	 * @throws CardsFaceDownException
 	 * @throws NotEnoughCardsException
 	 */
-	public void move(Move move)
-			throws IllegalMoveException, NotEnoughCardsException, CardsFaceDownException {
+	public void move(Move move) throws IllegalMoveException, NotEnoughCardsException, CardsFaceDownException {
 		Stack stack;
 
 		// TODO Make the magic number 99 disappear!
@@ -255,7 +256,7 @@ public class Game {
 			throw new IllegalMoveException(move);
 		} else if (move.from() == 99) {
 			newRow();
-		} else 
+		} else {
 			stack = stacks[move.from()].pop(move.cards());
 			stacks[move.to()].push(stack);
 			if (!stacks[move.from()].isEmpty() && !stacks[move.from()].peek().faceUp()) {
@@ -266,16 +267,9 @@ public class Game {
 		checkAllStacksForSuits();
 
 		moves = moves + 1;
+
 	}
 
-	public void move(Move move) 
-		throws IllegalMoveException, NotEnoughCardsException, CardsFaceDownException {
-		if (move instanceof MoveStack) {
-			move(((MoveStack) move).from(), ((MoveStack) move).cards(), ((MoveStack) move).to());
-		} else {
-		}
-	}
-	
 	/**
 	 * Deal a row of cards from the reserved cards to each stack.
 	 * 
@@ -288,7 +282,7 @@ public class Game {
 		if (reserved.isEmpty()) {
 			lost = true;
 		} else if (!canDealNewRow()) {
-			throw new IllegalMoveException(99, 1, 1);
+			throw new IllegalMoveException(new Move(Move.deal_new_row, 1, 1));
 		} else {
 			for (Stack stack : stacks) {
 				stack.push(reserved.peek());
@@ -310,7 +304,7 @@ public class Game {
 
 		return result;
 	}
-	
+
 	public boolean lost() {
 		return lost;
 	}
@@ -357,10 +351,10 @@ public class Game {
 				for (int to = 0; to < stacks.length; to++) {
 					if (to != from) {
 						if (stacks[to].isEmpty()) {
-							result.add(new MoveStack(from, range.size(), to));
+							result.add(new Move(from, range.size(), to));
 						} else if (range.contains(stacks[to].peek().value() - 1)) {
 							result.add(
-									new MoveStack(from, stacks[to].peek().value() - stacks[from].peek().value(), to));
+									new Move(from, stacks[to].peek().value() - stacks[from].peek().value(), to));
 						}
 					}
 				}
@@ -368,7 +362,7 @@ public class Game {
 		}
 
 		if (canDealNewRow()) {
-			result.add(new DealNewRow());
+			result.add(new Move(Move.deal_new_row, 1, 1));
 		}
 
 		return result;
@@ -446,9 +440,9 @@ public class Game {
 		face_up = countFaceUp() - 10;
 
 		return (2 * face_up) + (15 * columnsTurned()) + (10 * inSequence()) + (200 * collected);
-		
+
 	}
-	
+
 	/**
 	 * Calculate the score for Microsoft Windows version.
 	 * 

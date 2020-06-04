@@ -6,7 +6,7 @@ import edu.smcm.ai.genetic.programming.Value;
 public class DealNewRow extends edu.smcm.ai.genetic.algorithm.Heuristic {
 
 	@Override
-	public Value evaluate(edu.smcm.ai.genetic.algorithm.Subcontext subcontext) {
+	public Value evaluate(edu.smcm.ai.genetic.Position subcontext) {
 		return new Boolean(true);
 	}
 

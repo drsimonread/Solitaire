@@ -1,11 +1,12 @@
 package edu.smcm.ai.genetic.algorithm;
 
 import edu.smcm.ai.genetic.programming.Value;
+import edu.smcm.ai.genetic.Position;
 import edu.smcm.ai.genetic.programming.Integer;
 
 public class RandomInteger extends Heuristic {
 	
-	public Value evaluate(Subcontext subcontext) {
+	public Value evaluate(Position subcontext) {
 		return new Integer(random().nextInt());
 	}
 	

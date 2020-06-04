@@ -1,8 +1,9 @@
-package edu.smcm.ai.examples.solitaire.spider;
+package edu.smcm.ai.examples.solitaire.spider.algorithm;
 
 import java.util.List;
 import java.util.Scanner;
 
+import edu.smcm.ai.examples.solitaire.spider.Game;
 import edu.smcm.ai.examples.solitaire.spider.heuristics.CreatedEmptyStack;
 import edu.smcm.ai.examples.solitaire.spider.heuristics.DealNewRow;
 import edu.smcm.ai.examples.solitaire.spider.heuristics.DirtyFlush;
@@ -53,20 +54,11 @@ public class PlayGame {
 
 			for (Move move : allowable) {
 				System.out.print(move);
-				// TODO Fix object-orientism if you can
-				if (move instanceof MoveStack) {
-					System.out.printf(" :  %3d %3d %3d %3d %3d %3d %3d % 3d", top_card.value(game, (MoveStack) move),
-							cards_moved.value(game, (MoveStack) move), straight_flush.value(game, (MoveStack) move),
-							dirty_flush.value(game, (MoveStack) move), discovery.value(game, (MoveStack) move),
-							opens_move.value(game, (MoveStack) move), fills_empty.value(game, (MoveStack) move),
-							makes_empty.value(game, (MoveStack) move));
-				} else {
-					System.out.printf(" :  %3d %3d %3d %3d %3d %3d %3d % 3d", top_card.value(game, (DealNewRow) move),
-							cards_moved.value(game, (DealNewRow) move), straight_flush.value(game, (DealNewRow) move),
-							dirty_flush.value(game, (DealNewRow) move), discovery.value(game, (DealNewRow) move),
-							opens_move.value(game, (DealNewRow) move), fills_empty.value(game, (DealNewRow) move),
-							makes_empty.value(game, (DealNewRow) move));
-				}
+					System.out.printf(" :  %3d %3d %3d %3d %3d %3d %3d % 3d", top_card.value(game, move),
+							cards_moved.value(game, move), straight_flush.value(game, move),
+							dirty_flush.value(game, move), discovery.value(game, move),
+							opens_move.value(game, move), fills_empty.value(game, move),
+							makes_empty.value(game, move));
 				System.out.println();
 			}
 
@@ -77,12 +69,12 @@ public class PlayGame {
 			to_stack = keyboard.nextInt();
 
 			try {
-				if (from_stack == 99) {
+				if (from_stack == Move.deal_new_row) {
 					game.newRow();
 				} else if (!Util.isBetween(0, from_stack, 9) || !Util.isBetween(0, to_stack, 9)) {
 					System.out.println("That's an illegal move.");
 				} else {
-					game.move(from_stack, number_of_cards, to_stack);
+					game.move(new Move(from_stack, number_of_cards, to_stack));
 				}
 			} catch (IllegalMoveException caught) {
 				// TODO Something more specific about move?
@@ -93,10 +85,10 @@ public class PlayGame {
 			}
 		}
 
-		if (game.won()) {
-			System.out.println("You won!");
-		} else {
-			System.out.println("You lost!");
-		}
+	if(game.won())	{
+		System.out.println("You won!");
+	} else {
+		System.out.println("You lost!");
+	}
 	}
 }

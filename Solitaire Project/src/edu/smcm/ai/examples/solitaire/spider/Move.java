@@ -4,10 +4,16 @@ package edu.smcm.ai.examples.solitaire.spider;
  * The special move Deal Next Row is represented by a from column of 99.
  */		
 public class Move {
+	
+	public static final int deal_new_row;
 
 	private int from;
 	private int cards;
 	private int to;
+	
+	static {
+		deal_new_row = 99;
+	}
 	
 	public Move(int from, int cards, int to) {
 		this.from = from;

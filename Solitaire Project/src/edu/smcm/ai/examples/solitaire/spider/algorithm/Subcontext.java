@@ -3,7 +3,7 @@ package edu.smcm.ai.examples.solitaire.spider.algorithm;
 import edu.smcm.ai.examples.solitaire.spider.Game;
 import edu.smcm.ai.examples.solitaire.spider.Move;
 
-public class Subcontext extends edu.smcm.ai.genetic.algorithm.Subcontext {
+public class Subcontext extends edu.smcm.ai.genetic.Position {
 
 	private Game game;
 	private Move move;
