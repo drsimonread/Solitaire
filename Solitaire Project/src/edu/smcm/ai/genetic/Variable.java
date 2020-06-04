@@ -1,14 +1,13 @@
-package edu.smcm.ai.genetic.algorithm;
+package edu.smcm.ai.genetic;
 
 import java.util.Random;
 
-import edu.smcm.ai.genetic.Position;
 import edu.smcm.ai.genetic.programming.Value;
 
 /**
  * A Heuristic that provides a value in a Subcontext.
  */
-public abstract class Heuristic {
+public abstract class Variable {
 	
 	private static Random random;
 	
@@ -17,7 +16,7 @@ public abstract class Heuristic {
 	}
 	
 	public static void random(Random random) {
-		Heuristic.random = random;
+		Variable.random = random;
 	}
 	
 	protected Random random() {
@@ -25,6 +24,8 @@ public abstract class Heuristic {
 	}
 	
 	public abstract Value evaluate(Position subcontext);
+	
+	public abstract DataType dataType();
 	
 	public abstract String abbreviation();
 	

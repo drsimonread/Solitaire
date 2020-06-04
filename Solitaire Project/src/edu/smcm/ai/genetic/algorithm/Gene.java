@@ -2,6 +2,8 @@ package edu.smcm.ai.genetic.algorithm;
 
 import java.util.Random;
 
+import edu.smcm.ai.genetic.Variable;
+
 /**
  * In Genetic Algorithms a Gene is simply a Heuristic for evaluating a Context
  * and a weight for that Gene.
@@ -21,7 +23,7 @@ public class Gene {
 	/**
 	 * The heuristic associated with this Gene.
 	 */
-	private Heuristic heuristic;
+	private Variable heuristic;
 
 	static {
 		// Set a default random number generator
@@ -34,7 +36,7 @@ public class Gene {
 	 * @param weight    The initial weight of the Gene.
 	 * @param heuristic The Heuristic associated with this Gene.
 	 */
-	public Gene(double weight, Heuristic heuristic) {
+	public Gene(double weight, Variable heuristic) {
 		this.weight = weight;
 		this.heuristic = heuristic;
 	}
@@ -44,7 +46,7 @@ public class Gene {
 	 * 
 	 * @param heuristic The Heuristic associated with this Gene.
 	 */
-	public Gene(Heuristic heuristic) {
+	public Gene(Variable heuristic) {
 		this.weight = random.nextDouble();
 		this.heuristic = heuristic;
 	}
@@ -102,7 +104,7 @@ public class Gene {
 	 * 
 	 * @return The heuristic associated with this Gene.
 	 */
-	public Heuristic heuristic() {
+	public Variable heuristic() {
 		return heuristic;
 	}
 	

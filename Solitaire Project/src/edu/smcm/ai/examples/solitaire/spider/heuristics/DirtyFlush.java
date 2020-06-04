@@ -3,11 +3,12 @@ package edu.smcm.ai.examples.solitaire.spider.heuristics;
 import edu.smcm.ai.examples.solitaire.spider.Game;
 import edu.smcm.ai.examples.solitaire.spider.Move;
 import edu.smcm.ai.examples.solitaire.spider.algorithm.Position;
-import edu.smcm.ai.genetic.algorithm.Heuristic;
 import edu.smcm.ai.genetic.programming.Value;
+import edu.smcm.ai.genetic.DataType;
+import edu.smcm.ai.genetic.Variable;
 import edu.smcm.ai.genetic.programming.Integer;
 
-public class DirtyFlush extends Heuristic {
+public class DirtyFlush extends Variable {
 
 	/**
 	 * All this code is a copy of Straight Flush with references to Suit removed
@@ -62,6 +63,11 @@ public class DirtyFlush extends Heuristic {
 	@Override
 	public String fullName() {
 		return "Dirty Flush";
+	}
+
+	@Override
+	public DataType dataType() {
+		return DataType.Integer;
 	}
 
 }

@@ -3,6 +3,8 @@ package edu.smcm.ai.genetic.algorithm;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.smcm.ai.genetic.Variable;
+
 public class Genotype extends edu.smcm.ai.genetic.Genotype {
 
 	private List<Gene> genes;
@@ -16,7 +18,7 @@ public class Genotype extends edu.smcm.ai.genetic.Genotype {
 		this.genes.addAll(that.genes);
 	}
 		
-	public void addGene(Heuristic heuristic) {
+	public void addGene(Variable heuristic) {
 		genes.add(new Gene(heuristic));
 	}
 	

@@ -15,8 +15,8 @@ import edu.smcm.ai.examples.solitaire.spider.heuristics.NumberOfCards;
 import edu.smcm.ai.examples.solitaire.spider.heuristics.OpensMoveStackDestination;
 import edu.smcm.ai.examples.solitaire.spider.heuristics.StraightFlush;
 import edu.smcm.ai.examples.solitaire.spider.heuristics.TopMoved;
+import edu.smcm.ai.genetic.Variable;
 import edu.smcm.ai.genetic.algorithm.Genotype;
-import edu.smcm.ai.genetic.algorithm.Heuristic;
 
 public class Visualise {
 
@@ -29,7 +29,7 @@ public class Visualise {
 		List<MoveVisualisation> move_visualisations;
 		Genotype genotype;
 		Random random;
-		Heuristic heuristic;
+		Variable heuristic;
 		double weight;
 
 		keyboard = new Scanner(System.in);

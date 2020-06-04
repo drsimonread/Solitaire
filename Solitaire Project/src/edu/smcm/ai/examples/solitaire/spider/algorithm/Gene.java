@@ -7,17 +7,17 @@ import edu.smcm.ai.examples.solitaire.spider.Game;
 import edu.smcm.ai.examples.solitaire.spider.Move;
 import edu.smcm.ai.examples.solitaire.spider.MoveStack;
 import edu.smcm.ai.examples.solitaire.spider.heuristics.DealNewRow;
-import edu.smcm.ai.genetic.algorithm.Heuristic;
+import edu.smcm.ai.genetic.Variable;
 
 public class Gene {
 
 	private double weight;
-	private Heuristic heuristic;
+	private Variable heuristic;
 	
 	// TODO Make this static and set externally at the start of the run
 	private Random random;
 	
-	public Gene(double weight, Heuristic heuristic, Random random) {
+	public Gene(double weight, Variable heuristic, Random random) {
 		this.weight = weight;
 		this.heuristic = heuristic;
 		this.random = random;

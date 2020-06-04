@@ -15,21 +15,21 @@ import edu.smcm.ai.examples.solitaire.spider.heuristics.NumberOfCards;
 import edu.smcm.ai.examples.solitaire.spider.heuristics.OpensMoveStackDestination;
 import edu.smcm.ai.examples.solitaire.spider.heuristics.StraightFlush;
 import edu.smcm.ai.examples.solitaire.spider.heuristics.TopMoved;
-import edu.smcm.ai.genetic.algorithm.Heuristic;
+import edu.smcm.ai.genetic.Variable;
 import edu.smcm.ai.genetic.algorithm.RandomBoolean;
 import edu.smcm.ai.genetic.algorithm.RandomInteger;
 import edu.smcm.ai.genetic.algorithm.RandomReal;
 
 public class Genotype extends edu.smcm.ai.genetic.algorithm.Genotype {
 
-	private static List<Heuristic> boolean_heuristic;
-	private static List<Heuristic> integer_heuristic;
-	private static List<Heuristic> real_heuristic;
+	private static List<Variable> boolean_heuristic;
+	private static List<Variable> integer_heuristic;
+	private static List<Variable> real_heuristic;
 
 	static {
-		boolean_heuristic = new ArrayList<Heuristic>();
-		integer_heuristic = new ArrayList<Heuristic>();
-		real_heuristic = new ArrayList<Heuristic>();
+		boolean_heuristic = new ArrayList<Variable>();
+		integer_heuristic = new ArrayList<Variable>();
+		real_heuristic = new ArrayList<Variable>();
 		
 		boolean_heuristic.add(new RandomBoolean());
 		integer_heuristic.add(new RandomInteger());

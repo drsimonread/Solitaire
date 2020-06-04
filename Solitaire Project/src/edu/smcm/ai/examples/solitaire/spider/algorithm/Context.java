@@ -16,7 +16,7 @@ import edu.smcm.ai.examples.solitaire.spider.heuristics.OpensMoveStackDestinatio
 import edu.smcm.ai.examples.solitaire.spider.heuristics.StraightFlush;
 import edu.smcm.ai.examples.solitaire.spider.heuristics.TopMoved;
 import edu.smcm.ai.genetic.Genotype;
-import edu.smcm.ai.genetic.algorithm.Heuristic;
+import edu.smcm.ai.genetic.Variable;
 import edu.smcm.ai.genetic.programming.Variable;
 import edu.smcm.games.cards.CardsFaceDownException;
 import edu.smcm.games.cards.NotEnoughCardsException;

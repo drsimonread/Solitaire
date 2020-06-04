@@ -5,20 +5,10 @@ package edu.smcm.ai.genetic.programming;
  */
 // TODO Should this be abstract?
 // TODO Should Variables and Constants have a DataType instead of an OperatorType?
-public abstract class Variable extends Expression {
-
-	private String name;
-
-	public Variable(String name) {
-		this.name = name;
-	}
-		
-	public String name() {
-		return name;
-	}
+public abstract class Variable extends edu.smcm.ai.genetic.Variable implements PrettyPrintable {
 	
 	@Override
 	public String prettyPrint(int level) {
-		return spaces(level) + name + "\n";
+		return spaces(level) + fullName() + "\n";
 	}
 }

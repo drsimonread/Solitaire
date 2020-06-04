@@ -4,8 +4,9 @@ import edu.smcm.ai.examples.solitaire.spider.Game;
 import edu.smcm.ai.examples.solitaire.spider.Move;
 import edu.smcm.ai.examples.solitaire.spider.Range;
 import edu.smcm.ai.examples.solitaire.spider.algorithm.Position;
-import edu.smcm.ai.genetic.algorithm.Heuristic;
 import edu.smcm.ai.genetic.programming.Value;
+import edu.smcm.ai.genetic.DataType;
+import edu.smcm.ai.genetic.Variable;
 import edu.smcm.ai.genetic.programming.Boolean;
 import edu.smcm.games.cards.Card;
 import edu.smcm.games.cards.Suit;
@@ -24,7 +25,7 @@ import edu.smcm.games.cards.Suit;
  * stack before moving.
  *
  */
-public class OpensMoveStackDestination extends Heuristic {
+public class OpensMoveStackDestination extends Variable {
 
 	// TODO This smells. It's code that's duplicated all over the place.
 	/* NOTE: This takes a *position* */
@@ -100,5 +101,10 @@ public class OpensMoveStackDestination extends Heuristic {
 	@Override
 	public String fullName() {
 		return "Open Move Stack Destination";
+	}
+
+	@Override
+	public DataType dataType() {
+		return DataType.Boolean;
 	}
 }

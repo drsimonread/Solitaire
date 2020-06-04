@@ -1,6 +1,7 @@
 package edu.smcm.ai.genetic.programming;
 
 import edu.smcm.ai.genetic.Context;
+import edu.smcm.ai.genetic.DataType;
 import edu.smcm.util.ImplementationErrorException;
 
 public class Modulus extends BinaryOperator {
