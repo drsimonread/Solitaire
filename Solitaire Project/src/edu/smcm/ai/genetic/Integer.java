@@ -12,15 +12,17 @@ public class Integer extends Value {
 		return value;
 	}
 	
-	public void value(int value) {
-		this.value = value;
-	}
-	
 	@Override
 	public DataType type() {
 		return DataType.Integer;
 	}
+	
+	@Override
+	public double toDouble() {
+		return (double) value;
+	}
 
+	@Override
 	public String toString() {
 		return "" + value;
 	}

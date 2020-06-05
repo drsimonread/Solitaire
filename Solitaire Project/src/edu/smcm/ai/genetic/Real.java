@@ -12,15 +12,17 @@ public class Real extends Value {
 		return value;
 	}
 	
-	public void value(double value) {
-		this.value = value;
-	}
-	
 	@Override
 	public DataType type() {
 		return DataType.Real;
 	}
 	
+	@Override
+	public double toDouble() {
+		return value;
+	}
+	
+	@Override
 	public String toString() {
 		return "" + value;
 	}
