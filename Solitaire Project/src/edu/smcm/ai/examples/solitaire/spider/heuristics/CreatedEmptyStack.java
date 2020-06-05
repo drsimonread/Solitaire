@@ -14,7 +14,6 @@ public class CreatedEmptyStack extends edu.smcm.ai.genetic.Variable {
 		Game game;
 		Move move;
 		
-		
 		game = ((Position) position).game();
 		move = ((Position) position).move();
 		
