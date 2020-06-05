@@ -3,8 +3,11 @@
  */
 package edu.smcm.ai.genetic.programming;
 
+import edu.smcm.ai.genetic.Boolean;
 import edu.smcm.ai.genetic.Context;
 import edu.smcm.ai.genetic.DataType;
+import edu.smcm.ai.genetic.TypeError;
+import edu.smcm.ai.genetic.Value;
 
 /**
  *

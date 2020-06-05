@@ -1,9 +1,7 @@
 /**
  * 
  */
-package edu.smcm.ai.genetic.programming;
-
-import edu.smcm.ai.genetic.DataType;
+package edu.smcm.ai.genetic;
 
 /**
  *

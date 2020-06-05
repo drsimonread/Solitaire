@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.smcm.ai.genetic.Context;
+import edu.smcm.ai.genetic.Value;
 
 public class Test {
 

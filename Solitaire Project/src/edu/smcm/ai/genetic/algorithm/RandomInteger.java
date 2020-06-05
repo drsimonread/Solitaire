@@ -1,10 +1,10 @@
 package edu.smcm.ai.genetic.algorithm;
 
-import edu.smcm.ai.genetic.programming.Value;
 import edu.smcm.ai.genetic.Variable;
 import edu.smcm.ai.genetic.DataType;
+import edu.smcm.ai.genetic.Integer;
 import edu.smcm.ai.genetic.Position;
-import edu.smcm.ai.genetic.programming.Integer;
+import edu.smcm.ai.genetic.Value;
 
 public class RandomInteger extends Variable {
 	

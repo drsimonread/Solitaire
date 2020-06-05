@@ -1,4 +1,4 @@
-package edu.smcm.ai.genetic.programming;
+package edu.smcm.ai.genetic;
 
 // TODO Check Excpetion type extended
 @SuppressWarnings("serial")

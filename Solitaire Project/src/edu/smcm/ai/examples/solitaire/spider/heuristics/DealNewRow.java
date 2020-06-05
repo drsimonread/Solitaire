@@ -1,8 +1,8 @@
 package edu.smcm.ai.examples.solitaire.spider.heuristics;
 
+import edu.smcm.ai.genetic.Boolean;
 import edu.smcm.ai.genetic.DataType;
-import edu.smcm.ai.genetic.programming.Boolean;
-import edu.smcm.ai.genetic.programming.Value;
+import edu.smcm.ai.genetic.Value;
 
 public class DealNewRow extends edu.smcm.ai.genetic.Variable {
 

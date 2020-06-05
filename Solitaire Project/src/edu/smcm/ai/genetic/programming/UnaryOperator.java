@@ -1,6 +1,7 @@
 package edu.smcm.ai.genetic.programming;
 
 import edu.smcm.ai.genetic.Context;
+import edu.smcm.ai.genetic.Value;
 
 public abstract class UnaryOperator extends Expression {
 

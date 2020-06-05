@@ -3,9 +3,9 @@ package edu.smcm.ai.examples.solitaire.spider.heuristics;
 import edu.smcm.ai.examples.solitaire.spider.Move;
 import edu.smcm.ai.examples.solitaire.spider.algorithm.Position;
 import edu.smcm.ai.genetic.DataType;
+import edu.smcm.ai.genetic.Integer;
+import edu.smcm.ai.genetic.Value;
 import edu.smcm.ai.genetic.Variable;
-import edu.smcm.ai.genetic.programming.Integer;
-import edu.smcm.ai.genetic.programming.Value;
 
 public class NumberOfCards extends Variable {
 

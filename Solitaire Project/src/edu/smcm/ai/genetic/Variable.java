@@ -2,8 +2,6 @@ package edu.smcm.ai.genetic;
 
 import java.util.Random;
 
-import edu.smcm.ai.genetic.programming.Value;
-
 /**
  * A Heuristic that provides a value in a Subcontext.
  */

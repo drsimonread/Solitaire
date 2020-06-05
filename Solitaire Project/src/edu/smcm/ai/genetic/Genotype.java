@@ -55,4 +55,6 @@ public abstract class Genotype {
 	 * @return The crossed over copy.
 	 */
 	public abstract Genotype crossover(Genotype that);
+	
+	public abstract Value evaluate(Position position);
 }

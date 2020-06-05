@@ -1,5 +1,9 @@
 package edu.smcm.ai.examples.solitaire.spider;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.smcm.games.cards.Card;
 import edu.smcm.games.cards.Cards;
 import edu.smcm.games.cards.CardsFaceDownException;
 import edu.smcm.games.cards.Deck;
@@ -7,12 +11,6 @@ import edu.smcm.games.cards.NotEnoughCardsException;
 import edu.smcm.games.cards.Stack;
 import edu.smcm.games.cards.Suit;
 import edu.smcm.util.Util;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import edu.smcm.ai.examples.solitaire.spider.heuristics.DealNewRow;
-import edu.smcm.games.cards.Card;
 
 public class Game {
 
@@ -209,6 +207,9 @@ public class Game {
 		return result;
 	}
 
+	// TODO Check that this is used properly.  I think I assumed it was true in various places.
+	// TODO This also has an effect on lost.  I've lost if I can't deal a new row and there are no moves to make.
+	// That doesn't make sense since I can always move a sequence up into the empty stack.
 	private boolean canDealNewRow() {
 		boolean result;
 
@@ -240,44 +241,13 @@ public class Game {
 	}
 
 	/**
-	 * Move a stack of cards from one stack to another.
-	 * 
-	 * @param from the Position to move from
-	 * @param to   the Position to move to
-	 * @throws IllegalMoveException
-	 * @throws CardsFaceDownException
-	 * @throws NotEnoughCardsException
-	 */
-	public void move(Move move) throws IllegalMoveException, NotEnoughCardsException, CardsFaceDownException {
-		Stack stack;
-
-		// TODO Make the magic number 99 disappear!
-		if (!isLegalMove(move)) {
-			throw new IllegalMoveException(move);
-		} else if (move.from() == 99) {
-			newRow();
-		} else {
-			stack = stacks[move.from()].pop(move.cards());
-			stacks[move.to()].push(stack);
-			if (!stacks[move.from()].isEmpty() && !stacks[move.from()].peek().faceUp()) {
-				stacks[move.from()].flipTopCard();
-			}
-		}
-
-		checkAllStacksForSuits();
-
-		moves = moves + 1;
-
-	}
-
-	/**
 	 * Deal a row of cards from the reserved cards to each stack.
 	 * 
 	 * Dealing a new row doesn't count as a move.
 	 * 
 	 * @throws IllegalMoveException
 	 */
-	public void newRow() throws IllegalMoveException {
+	private void newRow() throws IllegalMoveException {
 
 		if (reserved.isEmpty()) {
 			lost = true;
@@ -292,6 +262,35 @@ public class Game {
 		}
 
 		checkAllStacksForSuits();
+	}
+	
+	/**
+	 * Move a stack of cards from one stack to another.
+	 * 
+	 * @param from the Position to move from
+	 * @param to   the Position to move to
+	 * @throws IllegalMoveException
+	 * @throws CardsFaceDownException
+	 * @throws NotEnoughCardsException
+	 */
+	public void move(Move move) throws IllegalMoveException, NotEnoughCardsException, CardsFaceDownException {
+		Stack stack;
+
+		if (!isLegalMove(move)) {
+			throw new IllegalMoveException(move);
+		} else if (move.from() == Move.deal_new_row) {
+			newRow();
+		} else {
+			stack = stacks[move.from()].pop(move.cards());
+			stacks[move.to()].push(stack);
+			if (!stacks[move.from()].isEmpty() && !stacks[move.from()].peek().faceUp()) {
+				stacks[move.from()].flipTopCard();
+			}
+		}
+
+		checkAllStacksForSuits();
+
+		moves = moves + 1;
 	}
 
 	public boolean won() {

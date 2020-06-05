@@ -2,6 +2,10 @@ package edu.smcm.ai.genetic.programming;
 
 import edu.smcm.ai.genetic.Context;
 import edu.smcm.ai.genetic.DataType;
+import edu.smcm.ai.genetic.Integer;
+import edu.smcm.ai.genetic.Real;
+import edu.smcm.ai.genetic.TypeError;
+import edu.smcm.ai.genetic.Value;
 import edu.smcm.util.ImplementationErrorException;
 
 public class Modulus extends BinaryOperator {

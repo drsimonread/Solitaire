@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Random;
 
 import edu.smcm.ai.genetic.Context;
+import edu.smcm.ai.genetic.Integer;
+import edu.smcm.ai.genetic.Real;
 import edu.smcm.util.ImplementationErrorException;
 
 public class GeneratorExample {

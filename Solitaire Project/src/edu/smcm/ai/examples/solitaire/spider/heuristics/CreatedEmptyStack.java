@@ -3,9 +3,9 @@ package edu.smcm.ai.examples.solitaire.spider.heuristics;
 import edu.smcm.ai.examples.solitaire.spider.Game;
 import edu.smcm.ai.examples.solitaire.spider.Move;
 import edu.smcm.ai.examples.solitaire.spider.algorithm.Position;
+import edu.smcm.ai.genetic.Boolean;
 import edu.smcm.ai.genetic.DataType;
-import edu.smcm.ai.genetic.programming.Boolean;
-import edu.smcm.ai.genetic.programming.Value;
+import edu.smcm.ai.genetic.Value;
 
 public class CreatedEmptyStack extends edu.smcm.ai.genetic.Variable {
 
