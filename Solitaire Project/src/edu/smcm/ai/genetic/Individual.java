@@ -52,6 +52,14 @@ public abstract class Individual implements Comparable<Individual> {
 		return random;
 	}
 
+	protected Genotype genotype() {
+		return genotype;
+	}
+	
+	protected Fitness fitness() {
+		return fitness;
+	}
+	
 	/**
 	 * Set the system-wide object factory.
 	 * 
@@ -88,6 +96,7 @@ public abstract class Individual implements Comparable<Individual> {
 		fitness = context.evaluate(genotype);
 	}
 
+	// TODO Do we have the Factory for only these two methods?
 	/**
 	 * Perform the crossover operation on two Individuals' Genotypes.
 	 * 

@@ -1,23 +1,12 @@
 package edu.smcm.ai.examples.solitaire.spider.algorithm;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.smcm.ai.examples.solitaire.spider.Fitness;
 import edu.smcm.ai.examples.solitaire.spider.Game;
 import edu.smcm.ai.examples.solitaire.spider.IllegalMoveException;
 import edu.smcm.ai.examples.solitaire.spider.Move;
-import edu.smcm.ai.examples.solitaire.spider.heuristics.CreatedEmptyStack;
-import edu.smcm.ai.examples.solitaire.spider.heuristics.DirtyFlush;
-import edu.smcm.ai.examples.solitaire.spider.heuristics.Discovery;
-import edu.smcm.ai.examples.solitaire.spider.heuristics.FillsEmptyStack;
-import edu.smcm.ai.examples.solitaire.spider.heuristics.NumberOfCards;
-import edu.smcm.ai.examples.solitaire.spider.heuristics.OpensMoveStackDestination;
-import edu.smcm.ai.examples.solitaire.spider.heuristics.StraightFlush;
-import edu.smcm.ai.examples.solitaire.spider.heuristics.TopMoved;
 import edu.smcm.ai.genetic.Genotype;
-import edu.smcm.ai.genetic.Variable;
-import edu.smcm.ai.genetic.programming.Variable;
 import edu.smcm.games.cards.CardsFaceDownException;
 import edu.smcm.games.cards.NotEnoughCardsException;
 import edu.smcm.util.ImplementationErrorException;
@@ -42,17 +31,6 @@ public class Context extends edu.smcm.ai.genetic.Context {
 	public static void maximum_number_of_moves (int maximum_number_of_moves) {
 		Context.maximum_number_of_moves = maximum_number_of_moves;
 	}
-
-	public double value(Game game, Move move, Genotype genotype) {
-		double score;
-		
-		score = 0.0;
-		for (Gene gene : genotype.genes()) {
-			score = score + gene.weight() + gene.heuristic().value(game, move);
-		}
-		
-		return score;
-	}
 	
 	public Move selectBestMove(Game game, List<Move> possible_moves, Genotype genotype) {
 		Move best_move;
@@ -64,9 +42,9 @@ public class Context extends edu.smcm.ai.genetic.Context {
 		for (Move move : possible_moves) {
 			if (null == best_move) {
 				best_move = move;
-				best_score = evaluate(game, move);
+				best_score = genotype.evaluate(new Position(game, move));
 			} else {
-				score = evaluate(game, move);
+				score = genotype.evaluate(new Position(game, move));
 				if (score > best_score) {
 					best_move = move;
 					best_score = score;

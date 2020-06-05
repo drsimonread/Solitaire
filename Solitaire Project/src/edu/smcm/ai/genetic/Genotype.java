@@ -56,5 +56,5 @@ public abstract class Genotype {
 	 */
 	public abstract Genotype crossover(Genotype that);
 	
-	public abstract Value evaluate(Position position);
+	public abstract double evaluate(Position position);
 }

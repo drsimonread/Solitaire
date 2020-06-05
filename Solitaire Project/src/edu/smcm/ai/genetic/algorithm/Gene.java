@@ -2,6 +2,7 @@ package edu.smcm.ai.genetic.algorithm;
 
 import java.util.Random;
 
+import edu.smcm.ai.genetic.Position;
 import edu.smcm.ai.genetic.Variable;
 
 /**
@@ -23,7 +24,7 @@ public class Gene {
 	/**
 	 * The heuristic associated with this Gene.
 	 */
-	private Variable heuristic;
+	private Variable variable;
 
 	static {
 		// Set a default random number generator
@@ -36,9 +37,9 @@ public class Gene {
 	 * @param weight    The initial weight of the Gene.
 	 * @param heuristic The Heuristic associated with this Gene.
 	 */
-	public Gene(double weight, Variable heuristic) {
+	public Gene(double weight, Variable variable) {
 		this.weight = weight;
-		this.heuristic = heuristic;
+		this.variable = variable;
 	}
 
 	/**
@@ -46,9 +47,9 @@ public class Gene {
 	 * 
 	 * @param heuristic The Heuristic associated with this Gene.
 	 */
-	public Gene(Variable heuristic) {
+	public Gene(Variable variable) {
 		this.weight = random.nextDouble();
-		this.heuristic = heuristic;
+		this.variable = variable;
 	}
 
 	/**
@@ -60,7 +61,7 @@ public class Gene {
 	 */
 	public Gene(Gene that) {
 		this.weight = that.weight;
-		this.heuristic = that.heuristic;
+		this.variable = that.variable;
 	}
 
 	/**
@@ -104,8 +105,8 @@ public class Gene {
 	 * 
 	 * @return The heuristic associated with this Gene.
 	 */
-	public Variable heuristic() {
-		return heuristic;
+	public Variable variable() {
+		return variable;
 	}
 	
 	/**
@@ -113,5 +114,9 @@ public class Gene {
 	 */
 	public void mutate() {
 		this.weight = random.nextFloat();
+	}
+	
+	public double evaluate(Position position) {
+		return weight * variable.evaluate(position).toDouble();
 	}
 }

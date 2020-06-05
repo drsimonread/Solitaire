@@ -22,6 +22,7 @@ import edu.smcm.ai.genetic.algorithm.RandomReal;
 
 public class Genotype extends edu.smcm.ai.genetic.algorithm.Genotype {
 
+	// TODO Remove or move lists of variables from Genotype.
 	private static List<Variable> boolean_heuristic;
 	private static List<Variable> integer_heuristic;
 	private static List<Variable> real_heuristic;
@@ -55,23 +56,12 @@ public class Genotype extends edu.smcm.ai.genetic.algorithm.Genotype {
 		super(that);
 	}
 	
-	public double evaluate(Game game, Move move) {
-		double result;
-		
-		result = 0.0;
-		 for (Gene gene : genes()) {
-			 result = result + gene.evaluate(game, move);
-		 }
-		 
-		 return result;
-	}
-	
-	public String visualise(Game game, Move move) {
+	public String visualise(Position position) {
 		String result;
 		
-		result = String.format("% 6.2f ", evaluate(game, move));
-		for (Gene gene : genes) {
-			result = result + gene.visualise(game, move) + " "; 
+		result = String.format("% 6.2f ", evaluate(position));
+		for (Gene gene : genes()) {
+			result = result + gene.visualise(position) + " "; 
 		}
 		
 		return result;
@@ -81,7 +71,7 @@ public class Genotype extends edu.smcm.ai.genetic.algorithm.Genotype {
 		String result;
 		
 		result = "Value ";
-		for (Gene gene : genes) {
+		for (Gene gene : genes()) {
 			result = result + gene.visualiseTitle();
 		}
 		
@@ -93,7 +83,7 @@ public class Genotype extends edu.smcm.ai.genetic.algorithm.Genotype {
 		String result;
 		
 		result = "";
-		for (Gene gene : genes) {
+		for (Gene gene : genes()) {
 			result = result + gene.title();
 		}
 		
@@ -101,7 +91,7 @@ public class Genotype extends edu.smcm.ai.genetic.algorithm.Genotype {
 	}
 		
 	public void dumpCSV(PrintStream output) {
-		for (Gene gene : genes) {
+		for (Gene gene : genes()) {
 			gene.dumpCSV(output);
 		}
 	}
@@ -110,7 +100,7 @@ public class Genotype extends edu.smcm.ai.genetic.algorithm.Genotype {
 		String result;
 		
 		result = "";
-		for (Gene gene : genes) {
+		for (Gene gene : genes()) {
 			result = result + gene;
 		}
 		

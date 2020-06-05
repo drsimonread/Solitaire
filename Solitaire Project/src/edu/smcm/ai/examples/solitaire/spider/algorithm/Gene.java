@@ -1,80 +1,63 @@
 package edu.smcm.ai.examples.solitaire.spider.algorithm;
 
 import java.io.PrintStream;
-import java.util.Random;
 
-import edu.smcm.ai.examples.solitaire.spider.Game;
-import edu.smcm.ai.examples.solitaire.spider.Move;
-import edu.smcm.ai.examples.solitaire.spider.MoveStack;
-import edu.smcm.ai.examples.solitaire.spider.heuristics.DealNewRow;
+import edu.smcm.ai.genetic.Value;
 import edu.smcm.ai.genetic.Variable;
 
-public class Gene {
+public class Gene extends edu.smcm.ai.genetic.algorithm.Gene {
 
-	private double weight;
-	private Variable heuristic;
-	
-	// TODO Make this static and set externally at the start of the run
-	private Random random;
-	
-	public Gene(double weight, Variable heuristic, Random random) {
-		this.weight = weight;
-		this.heuristic = heuristic;
-		this.random = random;
+	/**
+	 * All-arguments constructor for a Gene.
+	 * 
+	 * @param weight    The initial weight of the Gene.
+	 * @param heuristic The Heuristic associated with this Gene.
+	 */
+	public Gene(double weight, Variable variable) {
+		super(weight, variable);
 	}
-	
+
+	/**
+	 * A constructor for a Gene that initialises a random weight.
+	 * 
+	 * @param heuristic The Heuristic associated with this Gene.
+	 */
+	public Gene(Variable variable) {
+		super(variable);
+	}
+
+	/**
+	 * A copy constructor for a Gene.
+	 * 
+	 * TODO Is this necessary?
+	 * 
+	 * @param that The Gene to be copied.
+	 */
 	public Gene(Gene that) {
-		this.weight = that.weight;
-		this.heuristic = that.heuristic;
-		this.random = that.random;
+		super(that);
 	}
-	
-	public double evaluate(Game game, Move move) {
-		double result;
-		
-		if (move instanceof MoveStack) {
-			result = weight * heuristic.value(game, (MoveStack) move);
-		} else {
-			result = weight * heuristic.value(game, (DealNewRow) move);
-		}
-		
-		return result;
-	}
-	
-	public String visualise(Game game, Move move) {
-		int value;
-		
-		if (move instanceof MoveStack) {
-			value = heuristic.value(game, (MoveStack) move);
-		} else {
-			value = heuristic.value(game, (DealNewRow) move);
-		}
 
-		return String.format("%1$ 4.2f*%2$ 3d=%3$ 5.2f", weight, value, weight * value);
+	public String visualise(Position position) {
+		Value value;
+		
+		value = variable().evaluate(position);
+		
+		return String.format("%1$ 4.2f*%2$ 3d=%3$ 5.2f", weight(), value, weight() * value.toDouble());
 	}
 	
 	public String visualiseTitle() {
-		return String.format("%1$-16s", heuristic.abbreviation());
+		return String.format("%1$-16s", variable().abbreviation());
 	}
 	
 	public String title() {
-		return String.format("%1$-12s", heuristic.abbreviation());
+		return String.format("%1$-12s", variable().abbreviation());
 	}
 	
-	public Gene mutate() {
-		Gene result;
-		
-		result = new Gene(this);
-		result.weight = random.nextDouble();
-		
-		return result;
-	}
-
 	public void dumpCSV(PrintStream output) {
-		output.print(weight + ", ");
+		output.print(weight() + ", ");
 	}
 	
 	public String toString() {
-		return String.format("%1$ 9.8f ", weight);
+		return String.format("%1$ 9.8f ", weight());
 	}
 }

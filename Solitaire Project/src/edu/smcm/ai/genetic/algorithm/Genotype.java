@@ -3,6 +3,7 @@ package edu.smcm.ai.genetic.algorithm;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.smcm.ai.examples.solitaire.spider.algorithm.Gene;
 import edu.smcm.ai.genetic.Variable;
 
 public class Genotype extends edu.smcm.ai.genetic.Genotype {
@@ -26,8 +27,9 @@ public class Genotype extends edu.smcm.ai.genetic.Genotype {
 		genes.add(gene);
 	}
 	
-	// TODO Should we take a copy of genes first?
-	// TODO Should we provide an iterator instead?
+	// TODO Should we take a copy of genes first in genes()?
+	// TODO Should we provide an iterator instead of genes()?
+	// TODO Why does any other (non-extending) class need genes() anyway?
 	public List<Gene> genes() {
 		return genes;
 	}
@@ -67,5 +69,16 @@ public class Genotype extends edu.smcm.ai.genetic.Genotype {
 		}
 		
 		return result;
+	}
+	
+	public double evaluate(edu.smcm.ai.genetic.Position position) {
+		double result;
+		
+		result = 0.0;
+		 for (Gene gene : genes()) {
+			 result = result + gene.evaluate(position);
+		 }
+		 
+		 return result;
 	}
 }

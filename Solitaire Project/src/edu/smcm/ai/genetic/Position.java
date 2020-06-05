@@ -1,5 +1,5 @@
 package edu.smcm.ai.genetic;
 
-public class Position {
+public abstract class Position {
 
 }
