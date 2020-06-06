@@ -57,7 +57,7 @@ public class Genotype extends edu.smcm.ai.genetic.algorithm.Genotype {
 	}
 	
 	public void addGene(double weight, Variable variable) {
-		
+		super.addGene(weight, variable);
 	}
 	
 	public String visualise(Position position) {

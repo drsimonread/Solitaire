@@ -3,7 +3,6 @@ package edu.smcm.ai.examples.solitaire.spider.algorithm;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 import edu.smcm.ai.examples.solitaire.spider.Game;
@@ -19,7 +18,7 @@ import edu.smcm.ai.examples.solitaire.spider.variables.OpensMoveStackDestination
 import edu.smcm.ai.examples.solitaire.spider.variables.StraightFlush;
 import edu.smcm.ai.examples.solitaire.spider.variables.TopMoved;
 import edu.smcm.ai.genetic.Variable;
-import edu.smcm.ai.genetic.algorithm.Genotype;
+import edu.smcm.ai.examples.solitaire.spider.algorithm.Genotype;
 
 public class Visualise {
 
@@ -31,18 +30,18 @@ public class Visualise {
 		List<Move> allowable;
 		List<MoveVisualisation> move_visualisations;
 		Genotype genotype;
-		Random random;
 		Variable variable;
+		Position position;
 		double weight;
 
 		keyboard = new Scanner(System.in);
 
 		game = new Game(2, true);
 
-		random = new Random();
 		// TODO Initialise all static random number generators
 		genotype = new Genotype();
 
+		// TODO Find a way of synchronising the ordering of variables here with that of the Genotype
 		System.out.println("Enter weights:");
 
 		variable = new CreatedEmptyStack();
@@ -100,7 +99,8 @@ public class Visualise {
 
 			move_visualisations = new ArrayList<MoveVisualisation>();
 			for (Move move : allowable) {
-				move_visualisations.add(new MoveVisualisation(game, move, genotype));
+				position = new Position(game, move);
+				move_visualisations.add(new MoveVisualisation(position, genotype));
 			}
 
 			Collections.sort(move_visualisations);
@@ -115,7 +115,7 @@ public class Visualise {
 			keyboard.nextLine();
 
 			try {
-				game.move(move_visualisations.get(0).move());
+				game.move(move_visualisations.get(0).position().move());
 			} catch (Exception caught) {
 				System.err.println(caught);
 				caught.printStackTrace();

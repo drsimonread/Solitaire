@@ -1,30 +1,29 @@
 package edu.smcm.ai.examples.solitaire.spider;
 
-import edu.smcm.ai.genetic.algorithm.Genotype;
+import edu.smcm.ai.examples.solitaire.spider.algorithm.Position;
+import edu.smcm.ai.examples.solitaire.spider.algorithm.Genotype;
 
 public class MoveVisualisation implements Comparable<MoveVisualisation> {
-	private Move move;
+	private Position position;
 	private Genotype genotype;
-	private Game game;
 	private double value; // Optimisation to prevent having to evaluate many times during sort
 	
-	public MoveVisualisation(Game game, Move move, Genotype genotype) {
-		this.move = move;
+	public MoveVisualisation(Position position, Genotype genotype) {
+		this.position = position;
 		this.genotype = genotype;
-		this.game = game;
-		this.value = genotype.evaluate(game, move);
+		this.value = genotype.evaluate(position);
 	}
 	
-	public Move move() {
-		return move;
+	public Position position() {
+		return position;
 	}
 	
 	public String title () {
-		return move.title() + " " + genotype.visualisationTitle(); 
+		return position.move().title() + " " + genotype.visualisationTitle(); 
 	}
 	
 	public String visualise() {
-		return move + " " + genotype.visualise(game, move);
+		return position + " " + genotype.visualise(position);
 	}
 	
 	
