@@ -27,6 +27,17 @@ public class Genotype extends edu.smcm.ai.genetic.Genotype {
 		genes.add(gene);
 	}
 	
+	
+	/**
+	 * Used when visualising the genome for experimentation.
+	 * 
+	 * @param weight
+	 * @param variable
+	 */
+	protected void addGene(double weight, Variable variable) {
+		genes.add(new Gene(weight, variable));
+	}
+	
 	// TODO Should we take a copy of genes first in genes()?
 	// TODO Should we provide an iterator instead of genes()?
 	// TODO Why does any other (non-extending) class need genes() anyway?
@@ -62,9 +73,9 @@ public class Genotype extends edu.smcm.ai.genetic.Genotype {
 		
 		for (int count = 0; count < genes.size(); count++) {
 			if (count < position) {
-				result.addGene(genes.get(count));
+				result.addGene(new Gene(genes.get(count)));
 			} else {
-				result.addGene(t.genes.get(count));				
+				result.addGene(new Gene(t.genes.get(count)));				
 			}
 		}
 		
