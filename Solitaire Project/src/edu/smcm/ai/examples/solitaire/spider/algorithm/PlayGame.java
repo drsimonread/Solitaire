@@ -6,14 +6,14 @@ import java.util.Scanner;
 import edu.smcm.ai.examples.solitaire.spider.Game;
 import edu.smcm.ai.examples.solitaire.spider.IllegalMoveException;
 import edu.smcm.ai.examples.solitaire.spider.Move;
-import edu.smcm.ai.examples.solitaire.spider.heuristics.CreatedEmptyStack;
-import edu.smcm.ai.examples.solitaire.spider.heuristics.DirtyFlush;
-import edu.smcm.ai.examples.solitaire.spider.heuristics.Discovery;
-import edu.smcm.ai.examples.solitaire.spider.heuristics.FillsEmptyStack;
-import edu.smcm.ai.examples.solitaire.spider.heuristics.NumberOfCards;
-import edu.smcm.ai.examples.solitaire.spider.heuristics.OpensMoveStackDestination;
-import edu.smcm.ai.examples.solitaire.spider.heuristics.StraightFlush;
-import edu.smcm.ai.examples.solitaire.spider.heuristics.TopMoved;
+import edu.smcm.ai.examples.solitaire.spider.variables.CreatedEmptyStack;
+import edu.smcm.ai.examples.solitaire.spider.variables.DirtyFlush;
+import edu.smcm.ai.examples.solitaire.spider.variables.Discovery;
+import edu.smcm.ai.examples.solitaire.spider.variables.FillsEmptyStack;
+import edu.smcm.ai.examples.solitaire.spider.variables.NumberOfCards;
+import edu.smcm.ai.examples.solitaire.spider.variables.OpensMoveStackDestination;
+import edu.smcm.ai.examples.solitaire.spider.variables.StraightFlush;
+import edu.smcm.ai.examples.solitaire.spider.variables.TopMoved;
 
 public class PlayGame {
 

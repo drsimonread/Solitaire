@@ -1,4 +1,4 @@
-package edu.smcm.ai.examples.solitaire.spider.heuristics;
+package edu.smcm.ai.examples.solitaire.spider.variables;
 
 import edu.smcm.ai.genetic.Boolean;
 import edu.smcm.ai.genetic.DataType;

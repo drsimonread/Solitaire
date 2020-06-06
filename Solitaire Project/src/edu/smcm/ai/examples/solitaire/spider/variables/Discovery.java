@@ -1,4 +1,4 @@
-package edu.smcm.ai.examples.solitaire.spider.heuristics;
+package edu.smcm.ai.examples.solitaire.spider.variables;
 
 import edu.smcm.ai.examples.solitaire.spider.Game;
 import edu.smcm.ai.examples.solitaire.spider.Move;
