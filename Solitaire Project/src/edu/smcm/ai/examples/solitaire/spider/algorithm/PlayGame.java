@@ -4,8 +4,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import edu.smcm.ai.examples.solitaire.spider.Game;
+import edu.smcm.ai.examples.solitaire.spider.IllegalMoveException;
+import edu.smcm.ai.examples.solitaire.spider.Move;
 import edu.smcm.ai.examples.solitaire.spider.heuristics.CreatedEmptyStack;
-import edu.smcm.ai.examples.solitaire.spider.heuristics.DealNewRow;
 import edu.smcm.ai.examples.solitaire.spider.heuristics.DirtyFlush;
 import edu.smcm.ai.examples.solitaire.spider.heuristics.Discovery;
 import edu.smcm.ai.examples.solitaire.spider.heuristics.FillsEmptyStack;
@@ -13,7 +14,6 @@ import edu.smcm.ai.examples.solitaire.spider.heuristics.NumberOfCards;
 import edu.smcm.ai.examples.solitaire.spider.heuristics.OpensMoveStackDestination;
 import edu.smcm.ai.examples.solitaire.spider.heuristics.StraightFlush;
 import edu.smcm.ai.examples.solitaire.spider.heuristics.TopMoved;
-import edu.smcm.util.Util;
 
 public class PlayGame {
 
@@ -33,6 +33,7 @@ public class PlayGame {
 		OpensMoveStackDestination opens_move;
 		FillsEmptyStack fills_empty;
 		CreatedEmptyStack makes_empty;
+		Position position;
 
 		keyboard = new Scanner(System.in);
 
@@ -54,11 +55,11 @@ public class PlayGame {
 
 			for (Move move : allowable) {
 				System.out.print(move);
-					System.out.printf(" :  %3d %3d %3d %3d %3d %3d %3d % 3d", top_card.value(game, move),
-							cards_moved.value(game, move), straight_flush.value(game, move),
-							dirty_flush.value(game, move), discovery.value(game, move),
-							opens_move.value(game, move), fills_empty.value(game, move),
-							makes_empty.value(game, move));
+				position = new Position(game, move);
+				System.out.printf(" :  %3d %3d %3d %3d %3d %3d %3d % 3d", top_card.evaluate(position),
+						cards_moved.evaluate(position), straight_flush.evaluate(position),
+						dirty_flush.evaluate(position), discovery.evaluate(position), opens_move.evaluate(position),
+						fills_empty.evaluate(position), makes_empty.evaluate(position));
 				System.out.println();
 			}
 
@@ -69,15 +70,8 @@ public class PlayGame {
 			to_stack = keyboard.nextInt();
 
 			try {
-				if (from_stack == Move.deal_new_row) {
-					game.newRow();
-				} else if (!Util.isBetween(0, from_stack, 9) || !Util.isBetween(0, to_stack, 9)) {
-					System.out.println("That's an illegal move.");
-				} else {
-					game.move(new Move(from_stack, number_of_cards, to_stack));
-				}
+				game.move(new Move(from_stack, number_of_cards, to_stack));
 			} catch (IllegalMoveException caught) {
-				// TODO Something more specific about move?
 				System.out.println("That's an illegal move!");
 			} catch (Exception caught) {
 				System.err.println(caught);
@@ -85,10 +79,10 @@ public class PlayGame {
 			}
 		}
 
-	if(game.won())	{
-		System.out.println("You won!");
-	} else {
-		System.out.println("You lost!");
-	}
+		if (game.won()) {
+			System.out.println("You won!");
+		} else {
+			System.out.println("You lost!");
+		}
 	}
 }

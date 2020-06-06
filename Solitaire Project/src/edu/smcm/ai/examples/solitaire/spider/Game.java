@@ -193,6 +193,8 @@ public class Game {
 	 * 
 	 * The to Position's card instance variable should be zero. This is not checked.
 	 * 
+	 * TODO Make this throw an exception with appropriate message
+	 * 
 	 * @param from the Position Cards are being moved from
 	 * @param to   the Position Cards are being moved to
 	 * @return the move is legal
@@ -201,6 +203,7 @@ public class Game {
 		boolean result;
 
 		// TODO Check this and that it checks that there are enough cards to be moved!
+		// TODO Check that the stacks are in range
 		result = move.from() == Move.deal_new_row || ((stacks[move.to()].isEmpty() || (moveableStack(stacks[move.from()], move.cards())
 				&& stacks[move.to()].peek().value() == stacks[move.from()].peek(move.cards() - 1).value() + 1)));
 
@@ -224,6 +227,7 @@ public class Game {
 		return result;
 	}
 
+	// TODO This doesn't appear to check that all the cards are in the same suit
 	private void checkAllStacksForSuits() {
 
 		for (Stack stack : stacks) {
@@ -496,6 +500,7 @@ public class Game {
 		return result;
 	}
 
+	// TODO Why is there a toString and a printGame?
 	public void printGame() {
 		int maximum_size;
 
