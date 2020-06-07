@@ -15,13 +15,16 @@ public class Context extends edu.smcm.ai.genetic.Context {
 
 	private static int maximum_number_of_moves;
 	
-	
 	private List<Game> games;	
 	
 	public Context(int number_of_games, int suits, boolean relaxed) {
 		for (int count = 0; count < number_of_games; count++) {
 			games.add(new Game(suits, relaxed));
 		}
+	}
+	
+	public Context() {
+		this(100, 2, true);
 	}
 
 	static {

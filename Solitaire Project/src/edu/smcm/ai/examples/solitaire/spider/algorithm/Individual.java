@@ -6,7 +6,11 @@ import edu.smcm.ai.examples.solitaire.spider.Fitness;
 
 public class Individual extends edu.smcm.ai.genetic.Individual {
 	
-	public Individual(Genotype genotype) {
+	public Individual() {
+		super(factory().makeGenotype());
+	}
+	
+	public Individual(edu.smcm.ai.genetic.Genotype genotype) {
 		super(genotype);
 	}
 	

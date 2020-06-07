@@ -7,6 +7,8 @@ package edu.smcm.ai.genetic;
  */
 public abstract class Fitness implements Comparable<Fitness> {
 
+	// TODO Should Fitness be a list of Metrics?
+	
 	/**
 	 * Update this Fitness using another.
 	 * 

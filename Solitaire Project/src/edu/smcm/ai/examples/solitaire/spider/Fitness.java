@@ -65,6 +65,7 @@ public class Fitness extends edu.smcm.ai.genetic.Fitness {
 		return collected / games;
 	}
 	
+	// TODO URGENT Set number of games in solitaire.spider.Fitness
 	public int games() {
 		return games;
 	}
@@ -99,7 +100,7 @@ public class Fitness extends edu.smcm.ai.genetic.Fitness {
 
 	@Override
 	public int compareTo(edu.smcm.ai.genetic.Fitness that) {
-		// TODO Auto-generated method stub
+		// TODO URGENT compareTo in solitaire.spider.Fitness
 		return 0;
 	}
 }
