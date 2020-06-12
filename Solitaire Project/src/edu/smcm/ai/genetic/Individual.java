@@ -119,6 +119,8 @@ public abstract class Individual implements Comparable<Individual> {
 		return factory.makeIndividual(genotype.mutate());
 	}
 
+	public abstract String title();
+	
 	@Override
 	public int compareTo(Individual that) {
 		return fitness.compareTo(that.fitness);

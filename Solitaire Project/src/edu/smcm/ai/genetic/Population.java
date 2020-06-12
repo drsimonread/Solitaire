@@ -1,5 +1,6 @@
 package edu.smcm.ai.genetic;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -281,4 +282,35 @@ public class Population<I extends Individual> {
 	
 	// TODO Add an evolve method that iterates generation and creates a new Context (optionally)
 	// Termination conditions?
+	
+	public void evolve(Factory factory, int iterations, boolean new_context, PrintStream best_stream, PrintStream final_stream) {
+		Context context;
+		
+		context = null;
+		
+		for (int count = 0; count < iterations; count++) {
+			if (count == 0 || new_context) {
+				context = factory.makeContext();				
+			}
+			
+			generation(context);
+			
+			if (null != best_stream) {
+				if (0 == count) {
+					best_stream.printf("        %s\n", individuals.get(0).title());
+				}
+				best_stream.printf("% 5d : %s\n", count, individuals.get(0));
+			}
+		}
+		
+		if (null != final_stream) {
+			// TODO This is wrong because it prints unevaluated individuals
+			// However evaluating them makes it inconsistent with generation
+			final_stream.printf("        %s\n", individuals.get(0).title());
+			for (int count = 0; count < individuals.size(); count++) {
+				best_stream.printf("% 5d : %s\n", count, individuals.get(count));
+			}
+		}
+	}
+	
 }

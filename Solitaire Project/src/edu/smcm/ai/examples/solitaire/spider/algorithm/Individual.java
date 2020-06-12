@@ -14,12 +14,6 @@ public class Individual extends edu.smcm.ai.genetic.Individual {
 		super(genotype);
 	}
 	
-	public void dumpCSV(PrintStream output) {
-		output.print(fitness() + ", ");
-		((Genotype) genotype()).dumpCSV(output);
-		output.println();
-	}
-	
 	public String title() {
 		return String.format("%1$-7s %2$-5s %3$-5s ", "Sun", "Coll", "Wins") + ((Genotype) genotype()).title();
 	}

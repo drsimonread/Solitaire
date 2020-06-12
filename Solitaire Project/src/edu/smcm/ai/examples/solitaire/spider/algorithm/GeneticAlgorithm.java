@@ -21,26 +21,19 @@ public class GeneticAlgorithm {
 	}
 	
 	public static void main(String[] arguments) {
+		Factory factory;
 		Population population;
 		Context context;
-		Genotype template;
 		
 		// TODO Initialise all random number generators if necessary
 		// TODO Initialise all static variables if necessary
+		factory = new Factory();
+		
+		factory.experiment(0);
+		
+		factory.initialiseGenotype();
 		
 		// Create a genotype template
-		// TODO The order of these matters due to crossover, but we don't know how
-		template = new Genotype();
-		template.addGene(new CreatedEmptyStack());
-		template.addGene(new DealNewRow());
-		template.addGene(new DirtyFlush());
-		template.addGene(new Discovery());
-		template.addGene(new FillsEmptyStack());
-		template.addGene(new NumberOfCards());
-		template.addGene(new OpensMoveStackDestination());
-		template.addGene(new StraightFlush());
-		template.addGene(new TopMoved());
-
 		population = new Population(factory);
 
 		// TODO This evolves against a fixed set of games (context) for all generations.  This should be an option.
