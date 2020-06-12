@@ -19,8 +19,8 @@ public class Genotype extends edu.smcm.ai.genetic.Genotype {
 		this.genes.addAll(that.genes);
 	}
 		
-	public void addGene(Variable heuristic) {
-		genes.add(new Gene(heuristic));
+	public void addGene(Variable variable) {
+		genes.add(new Gene(variable));
 	}
 	
 	private void addGene(Gene gene) {
