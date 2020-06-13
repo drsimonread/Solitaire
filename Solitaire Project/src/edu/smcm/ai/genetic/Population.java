@@ -9,7 +9,7 @@ import java.util.Random;
 /**
  * The population that's going to be evolved.
  * 
- * The population consists of some number of Individuals. In each generation
+ * <p>The population consists of some number of Individuals. In each generation
  * they are ranked according to their performance in some Context, then some of
  * their members are selected for the next generation. In this model, some of
  * the best and worst members are preserved. THe rest of the population comes
@@ -17,11 +17,11 @@ import java.util.Random;
  * can either occur in the whole population of the last generation or only those
  * Individuals who have been selected to go onto the next generation.
  * 
- * The best individuals are preserved so that there is no back-sliding of the
+ * <p>The best individuals are preserved so that there is no back-sliding of the
  * population. The worst individuals are kept as they provide diversity in the
  * pool for future crossover.
  *
- * The division of the population into groups is stated as the number of
+ * <p>The division of the population into groups is stated as the number of
  * individuals as stating a proportion of an overall population for each groups
  * could lead to rounding errors causing the population to increase or decrease
  * in size over time.
@@ -31,7 +31,7 @@ public class Population<I extends Individual> {
 	/**
 	 * A random number generator.
 	 * 
-	 * There should be only one for the entire system so that seeds can be used and
+	 * <p>There should be only one for the entire system so that seeds can be used and
 	 * errors found when they occur.
 	 */
 	private static Random random;
@@ -82,7 +82,7 @@ public class Population<I extends Individual> {
 	/**
 	 * Set the random number generator used by this class.
 	 * 
-	 * Not setting a random number generator will cause a NullPointerException.
+	 * <p>NOTE: Not setting a random number generator will cause a NullPointerException.
 	 * 
 	 * @param random the random number generator to be used.
 	 */
@@ -182,7 +182,7 @@ public class Population<I extends Individual> {
 	/**
 	 * Cause this Population to use limited crossover.
 	 * 
-	 * If limited crossover is used then crossover only occurs between the already
+	 * <p>If limited crossover is used then crossover only occurs between the already
 	 * selected fittest and worst populations, otherwise it occurs in the population
 	 * of the last generation as a whole.
 	 * 
@@ -195,7 +195,7 @@ public class Population<I extends Individual> {
 	/**
 	 * Cause this Population to use limited mutation.
 	 * 
-	 * If limited mutation is used then mutation only occurs to the already selected
+	 * <p>If limited mutation is used then mutation only occurs to the already selected
 	 * fittest and worst populations, otherwise it occurs in the population of the
 	 * last generation as a whole.
 	 * 
@@ -280,8 +280,7 @@ public class Population<I extends Individual> {
 		individuals = next_generation;
 	} 
 	
-	// TODO Add an evolve method that iterates generation and creates a new Context (optionally)
-	// Termination conditions?
+	// TODO Alternative Termination Conditions?
 	
 	public void evolve(Factory factory, int iterations, boolean new_context, PrintStream best_stream, PrintStream final_stream) {
 		Context context;
@@ -312,5 +311,4 @@ public class Population<I extends Individual> {
 			}
 		}
 	}
-	
 }
