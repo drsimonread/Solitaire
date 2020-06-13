@@ -17,7 +17,7 @@ public class CreatedEmptyStack extends edu.smcm.ai.genetic.Variable {
 		game = ((Position) position).game();
 		move = ((Position) position).move();
 		
-		return new Boolean(game.cardsInStack(move.from()) == move.cards());
+		return new Boolean(!(move.from() == Move.deal_new_row) && game.cardsInStack(move.from()) == move.cards());
 	}
 
 	@Override

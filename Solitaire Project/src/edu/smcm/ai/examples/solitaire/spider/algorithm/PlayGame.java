@@ -56,10 +56,12 @@ public class PlayGame {
 			for (Move move : allowable) {
 				System.out.print(move);
 				position = new Position(game, move);
-				System.out.printf(" :  %3d %3d %3d %3d %3d %3d %3d % 3d", top_card.evaluate(position),
+				// TODO Fix printing of Variables3 1 8
+/*				System.out.printf(" :  %3d %3d %3d %3d %3d %3d %3d % 3d", top_card.evaluate(position),
 						cards_moved.evaluate(position), straight_flush.evaluate(position),
 						dirty_flush.evaluate(position), discovery.evaluate(position), opens_move.evaluate(position),
 						fills_empty.evaluate(position), makes_empty.evaluate(position));
+						*/
 				System.out.println();
 			}
 

@@ -108,8 +108,8 @@ public class Stack {
 			// We get away with it because we also reverse it when we push the whole new stack.
 			
 			// Copy cards in reverse order into new Stack
-			for (int count = 0; count < number; count++) {
-				result.cards.add(this.peek(count));
+			for (int count = 0; count < number; count++)  {
+				result.push(peek());
 				pop();
 			}
 

@@ -14,11 +14,19 @@ public class TopMoved extends Variable {
 	public Value evaluate(edu.smcm.ai.genetic.Position position) {
 		Game game;
 		Move move;
+		Integer result;
 		
 		game = ((Position) position).game();
 		move = ((Position) position).move();
 
-		return new Integer(game.cardAt(move.from(), move.cards() - 1).value());
+		// TODO Is this the right answer. It's a Joker!
+		if (move.from() == Move.deal_new_row) {
+			result = new Integer(0);
+		} else {
+			result = new Integer(game.cardAt(move.from(), move.cards() - 1).value());
+		}
+		
+		return result;
 	}
 
 	@Override

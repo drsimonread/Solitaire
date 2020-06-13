@@ -18,7 +18,7 @@ public class Discovery extends Variable {
 		game = ((Position) position).game();
 		move = ((Position) position).move();
 		
-		return new Boolean(move.cards() < game.cardsInStack(move.from()) &&
+		return new Boolean(move.from() != Move.deal_new_row && move.cards() < game.cardsInStack(move.from()) &&
 				!game.cardAt(move.from(), move.cards()).faceUp());
 	}
 

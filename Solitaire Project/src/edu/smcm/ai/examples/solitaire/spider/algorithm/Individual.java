@@ -1,7 +1,5 @@
 package edu.smcm.ai.examples.solitaire.spider.algorithm;
 
-import java.io.PrintStream;
-
 import edu.smcm.ai.examples.solitaire.spider.Fitness;
 
 public class Individual extends edu.smcm.ai.genetic.Individual {

@@ -1,5 +1,6 @@
 package edu.smcm.ai.examples.solitaire.spider.algorithm;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.smcm.ai.examples.solitaire.spider.Fitness;
@@ -18,6 +19,8 @@ public class Context extends edu.smcm.ai.genetic.Context {
 	private List<Game> games;	
 	
 	public Context(int number_of_games, int suits, boolean relaxed) {
+		this.games = new ArrayList<Game>(number_of_games);
+		
 		for (int count = 0; count < number_of_games; count++) {
 			games.add(new Game(suits, relaxed));
 		}

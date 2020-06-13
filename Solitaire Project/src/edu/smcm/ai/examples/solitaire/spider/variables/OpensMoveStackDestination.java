@@ -58,6 +58,10 @@ public class OpensMoveStackDestination extends Variable {
 		game = ((Position) position).game();
 		move = ((Position) position).move();
 		
+		if (move.from() == Move.deal_new_row) {
+			return new Boolean(false);
+		}
+		
 		moved = moveableRange(game, move.from(), 0);
 
 		if (game.cardsInStack(move.from()) <= moved.size() ||

@@ -16,6 +16,10 @@ public class Move {
 	}
 	
 	public Move(int from, int cards, int to) {
+		assert (from >= 0);
+		assert (to >= 0);
+		assert (cards >0 && cards <= 13);
+		
 		this.from = from;
 		this.cards = cards;
 		this.to = to;

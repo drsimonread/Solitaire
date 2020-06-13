@@ -1,55 +1,58 @@
 package edu.smcm.ai.examples.solitaire.spider.algorithm;
 
-import edu.smcm.ai.examples.solitaire.spider.variables.CreatedEmptyStack;
-import edu.smcm.ai.examples.solitaire.spider.variables.DealNewRow;
-import edu.smcm.ai.examples.solitaire.spider.variables.DirtyFlush;
-import edu.smcm.ai.examples.solitaire.spider.variables.Discovery;
-import edu.smcm.ai.examples.solitaire.spider.variables.FillsEmptyStack;
-import edu.smcm.ai.examples.solitaire.spider.variables.NumberOfCards;
-import edu.smcm.ai.examples.solitaire.spider.variables.OpensMoveStackDestination;
-import edu.smcm.ai.examples.solitaire.spider.variables.StraightFlush;
-import edu.smcm.ai.examples.solitaire.spider.variables.TopMoved;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.Random;
 
 public class GeneticAlgorithm {
 
 	private static final int generations;
-	private static final Factory factory;
-	
+
 	static {
 		generations = 100;
-		factory = new Factory();
 	}
-	
+
 	public static void main(String[] arguments) {
 		Factory factory;
 		Population population;
-		Context context;
+		PrintStream best_stream;
+		PrintStream final_stream;
+		Random random;
+		int seed;
 		
-		// TODO Initialise all random number generators if necessary
+		// TODO Read seed in from keyboard or file
+		seed = 45678;
+		
+		random = new Random(seed);
+
+		// Initialise all random number generators if necessary
+		edu.smcm.ai.genetic.Factory.random(random);
+		edu.smcm.ai.genetic.Genotype.random(random);
+		edu.smcm.ai.genetic.Individual.random(random);
+		edu.smcm.ai.genetic.Population.random(random);
+		edu.smcm.ai.genetic.Variable.random(random);
+		edu.smcm.ai.genetic.algorithm.Gene.random(random);
+		
 		// TODO Initialise all static variables if necessary
 		factory = new Factory();
 		
+		edu.smcm.ai.genetic.Individual.factory(factory);
+		
+
 		factory.experiment(0);
-		
+
 		factory.initialiseGenotype();
-		
-		// Create a genotype template
+
 		population = new Population(factory);
+		try {
+			best_stream = new PrintStream(new File("best.csv"));
+			final_stream = new PrintStream(new File("final.csv"));
 
-		// TODO This evolves against a fixed set of games (context) for all generations.  This should be an option.
-		// New set of games every iteration to prevent training to the games
-		context = new Context();
-		
-		System.out.println(population.title());
-		for (int generation = 0; generation < generations; generation++) {
-
-			
-			population.generation(context);	
-			// TODO How do we capture/visualise evolution
+			population.evolve(factory, generations, true, best_stream, final_stream);
+		} catch (IOException caught) {
+			System.err.println(caught);
+			caught.printStackTrace();
 		}
-		
-		// TODO I really don't care about the whole final population, do I?
-		population.dumpCSV("population.csv");
-		
-	}	
+	}
 }

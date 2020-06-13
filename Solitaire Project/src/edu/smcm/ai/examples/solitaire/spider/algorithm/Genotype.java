@@ -1,5 +1,7 @@
 package edu.smcm.ai.examples.solitaire.spider.algorithm;
 
+import edu.smcm.ai.genetic.Variable;
+
 public class Genotype extends edu.smcm.ai.genetic.algorithm.Genotype {
 
 	public Genotype() {
@@ -8,6 +10,12 @@ public class Genotype extends edu.smcm.ai.genetic.algorithm.Genotype {
 	
 	public Genotype(Genotype that) {
 		super(that);
+	}
+	
+	// Needs to be public for Visualise
+	@Override
+	public void addGene(double weight, Variable variable) {
+		super.addGene(weight, variable);
 	}
 	
 	public String visualise(Position position) {

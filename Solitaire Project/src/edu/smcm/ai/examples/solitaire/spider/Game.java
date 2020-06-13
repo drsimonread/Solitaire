@@ -227,9 +227,10 @@ public class Game {
 		return result;
 	}
 
-	// TODO This doesn't appear to check that all the cards are in the same suit
 	private void checkAllStacksForSuits() {
 
+		// moveableStack checks that all cards are of the same suit
+		
 		for (Stack stack : stacks) {
 			if (!stack.isEmpty() && moveableStack(stack, Card.cards_in_suit)) {
 				for (int count = 0; count < Card.cards_in_suit; count++) {
@@ -367,7 +368,7 @@ public class Game {
 		if (canDealNewRow()) {
 			result.add(new Move(Move.deal_new_row, 1, 1));
 		}
-
+		
 		return result;
 	}
 
