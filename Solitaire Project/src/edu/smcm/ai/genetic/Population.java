@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import edu.smcm.util.Pair;
+
 /**
  * The population that's going to be evolved.
  * 
@@ -63,7 +65,7 @@ public class Population<I extends Individual> {
 	/**
 	 * A flag indicating whether crossover will be limited only to the fittest and
 	 * weakest selected individuals or whether it will occur in the population as a
-	 * whole.
+	 * whole.1qqqqqqq
 	 */
 	private boolean limited_crossover;
 
@@ -167,6 +169,7 @@ public class Population<I extends Individual> {
 	 * @param crossover_population Size of the crossover population.
 	 */
 	public void crossover_population(int crossover_population) {
+		assert (0 == crossover_population % 2);
 		this.crossover_population = crossover_population;
 	}
 
@@ -215,7 +218,10 @@ public class Population<I extends Individual> {
 		List<I> next_generation; // The individuals in the next generation.
 		I left; // The left member in a crossover.
 		I right; // The right member in a crossover.
-
+		Pair<I, I> pair_of_individuals; // Pair resulting from crossover
+		List<I> crossover_individuals; // The individuals resulting from crossover
+		List<I> mutation_individuals; // The individuals resulting from mutation		
+		
 		// Generate the array to hold all the Individuals in the next generation.
 		next_generation = new ArrayList<I>(individuals.size());
 
@@ -237,33 +243,38 @@ public class Population<I extends Individual> {
 		}
 
 		// Crossover some of the population
-		for (int count = 0; count < crossover_population; count++) {
-			// TODO An individual can crossover with itself, but this is rare
+		assert (0 == crossover_population % 2);
+		
+		crossover_individuals = new ArrayList<I>(crossover_population/2);
+		for (int count = 0; count < crossover_population / 2; count++) {
 			if (limited_crossover) {
 				// Crossover only occurs in members already selected for the next generation
-				// TODO Crossover can occur with an Individual that's already been subjected to
-				// crossover!
 				left = next_generation.get(random.nextInt(next_generation.size()));
-				right = next_generation.get(random.nextInt(next_generation.size()));
+				do {
+					right = next_generation.get(random.nextInt(next_generation.size()));
+				} while (left == right);
 			} else {
 				// Crossover occurs between any members of the previous generation
 				left = individuals.get(random.nextInt(individuals.size()));
-				right = individuals.get(random.nextInt(individuals.size()));
+				do {
+					right = individuals.get(random.nextInt(individuals.size()));
+				} while (left == right);
 			}
 
 			// Actually perform the crossover
 			// NOTE: The cast is necessary as crossover is only bound tp return something of
 			// class Interface, not something of class I which extends Interface.
 			// TODO Do something about making a sensible error message if this cast fails?
-			next_generation.add((I) left.crossover(right));
+			pair_of_individuals = (Pair<I, I>) left.crossover(right);
+			crossover_individuals.add(pair_of_individuals.first());
+			crossover_individuals.add(pair_of_individuals.second());
 		}
 
 		// Mutate some of the population
+		mutation_individuals = new ArrayList<I>(mutation_population);
 		for (int count = 0; count < mutation_population; count++) {
 			if (limited_mutation) {
 				// Mutation only occurs in the population already selected
-				// TODO This includes individuals that have already been subject to crossover of
-				// mutation!
 				left = next_generation.get(random.nextInt(next_generation.size()));
 			} else {
 				// Mutation occurs in any member of the previous population.
@@ -273,9 +284,13 @@ public class Population<I extends Individual> {
 			// Actually perform the mutation
 			// NOTE: The cast is necessary as crossover is only bound tp return something of
 			// class Interface, not something of class I which extends Interface.
-			next_generation.add((I) left.mutate());
+			mutation_individuals.add((I) left.mutate());
 		}
 
+		// Accumulate total next population
+		next_generation.addAll(crossover_individuals);
+		next_generation.addAll(mutation_individuals);
+		
 		// Make the temporary population the next generation
 		individuals = next_generation;
 	} 

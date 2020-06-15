@@ -2,6 +2,8 @@ package edu.smcm.ai.genetic;
 
 import java.util.Random;
 
+import edu.smcm.util.Pair;
+
 /**
  * An abstract class to represent the central idea of a genotype.
  * 
@@ -54,7 +56,7 @@ public abstract class Genotype {
 	 * @param that The genotype to crossover with.
 	 * @return The crossed over copy.
 	 */
-	public abstract Genotype crossover(Genotype that);
+	public abstract Pair<Genotype, Genotype> crossover(Genotype that);
 	
 	public abstract double evaluate(Position position);
 }

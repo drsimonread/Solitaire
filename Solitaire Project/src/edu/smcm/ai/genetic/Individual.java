@@ -2,6 +2,8 @@ package edu.smcm.ai.genetic;
 
 import java.util.Random;
 
+import edu.smcm.util.Pair;
+
 /**
  * Embodiment of an Individual within the Population.
  * 
@@ -106,8 +108,17 @@ public abstract class Individual implements Comparable<Individual> {
 	 * @param other The other Individual involved in the crossover.
 	 * @return The Individual resulting from the crossover.
 	 */
-	public Individual crossover(Individual other) {
-		return factory.makeIndividual(genotype.crossover(other.genotype));
+	public Pair<Individual,Individual> crossover(Individual other) {
+		Pair<Genotype, Genotype> genotypes;
+		Individual first;
+		Individual second;
+		
+		genotypes = genotype.crossover(other.genotype);
+		
+		first = factory.makeIndividual(genotypes.first());
+		second = factory.makeIndividual(genotypes.second());
+		
+		return new Pair<Individual, Individual>(first,second);
 	}
 
 	/**

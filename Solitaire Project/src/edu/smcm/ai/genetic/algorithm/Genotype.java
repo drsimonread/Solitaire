@@ -5,6 +5,7 @@ import java.util.List;
 
 import edu.smcm.ai.examples.solitaire.spider.algorithm.Gene;
 import edu.smcm.ai.genetic.Variable;
+import edu.smcm.util.Pair;
 
 public class Genotype extends edu.smcm.ai.genetic.Genotype {
 
@@ -59,27 +60,31 @@ public class Genotype extends edu.smcm.ai.genetic.Genotype {
 		return result;
 	}
 	
-	// TODO Two types of crossover -- single and random
+	// TODO Two types of crossover -- single and multiple
 	@Override
-	public Genotype crossover(edu.smcm.ai.genetic.Genotype that) {
-		Genotype result;
+	public Pair<edu.smcm.ai.genetic.Genotype, edu.smcm.ai.genetic.Genotype> crossover(edu.smcm.ai.genetic.Genotype that) {
+		Genotype first;
+		Genotype second;
 		int position;
 		Genotype t;
 		
 		t = (Genotype) that;
 		
 		position = random().nextInt(genes.size());
-		result = new Genotype();
+		first = new Genotype();
+		second = new Genotype();
 		
 		for (int count = 0; count < genes.size(); count++) {
 			if (count < position) {
-				result.addGene(new Gene(genes.get(count)));
+				first.addGene(new Gene(genes.get(count)));
+				second.addGene(new Gene(t.genes.get(count)));
 			} else {
-				result.addGene(new Gene(t.genes.get(count)));				
+				first.addGene(new Gene(t.genes.get(count)));
+				second.addGene(new Gene(genes.get(count)));
 			}
 		}
 		
-		return result;
+		return new Pair<edu.smcm.ai.genetic.Genotype, edu.smcm.ai.genetic.Genotype>(first, second);
 	}
 	
 	public double evaluate(edu.smcm.ai.genetic.Position position) {
